@@ -18,8 +18,8 @@ URL:		http://www.wesnoth.org
 BuildRequires:	SDL-devel >= 1.2
 BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
-BuildRequires:	SDL_ttf-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
+BuildRequires:	SDL_ttf-devel >= 1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -36,7 +36,6 @@ przewagê lub jej brak w odmiennym ukszta³towaniu terenu i przeciwko
 ró¿nym sposobom ataku. Oddzia³y zdobywaj± do¶wiadczenie i poziomy
 zaawansowania i s± przenoszene z jednej scenerii do nastêpnej kampani.
 
-%if %{with server}
 %package server
 Summary:	Network server for Wesnoth
 Summary(pl):	Sieciowy serwer dla Wesnoth
@@ -47,9 +46,7 @@ Server for playing networked games of Wesnoth.
 
 %description server -l pl
 Serwer do prowadzenia sieciowych gier Wesnoth.
-%endif
 
-%if %{with tools}
 %package tools
 Summary:	Tools for Wesnoth
 Summary(pl):	Narzêdzia dla Wesnoth
@@ -61,7 +58,6 @@ Map editor and translations tools.
 
 %description tools -l pl
 Edytor map i narzêdzia do t³umaczeñ.
-%endif
 
 %prep
 %setup -q
@@ -89,15 +85,15 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %doc changelog README MANUAL*
 %attr(755,root,root) %{_bindir}/wesnoth
-%{_mandir}/man6/wesnoth.6.gz
-%{_datadir}/%{name}/*
+%{_mandir}/man6/wesnoth.6*
+%{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 
 %if %{with server}
 %files server
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/wesnothd
-%{_mandir}/man6/wesnothd.6.gz
+%{_mandir}/man6/wesnothd.6*
 %endif
 
 %if %{with tools}
