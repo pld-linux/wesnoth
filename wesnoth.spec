@@ -4,7 +4,7 @@
 %bcond_without 	tools	# without tools
 #
 Summary:	Strategy game with a fantasy theme
-Summary(pl):	Strategiczna gra z fantazyjnym tematem
+Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	0.6.1
 Release:	1
@@ -30,7 +30,7 @@ types of attacks. Units gain experience and advance levels, and are
 carried over from one scenario to the next campaign.
 
 %description -l pl
-Battle for Wesnoth jest fantazyjno strategiczn± gr±. Batalia o
+Battle for Wesnoth jest strategiczn± gr± fantasy. Batalia o
 kontrolê nad wsiami przy pomocy ró¿nego rodzaju oddzia³ów, które maj±
 przewagê lub jej brak w odmiennym ukszta³towaniu terenu i przeciwko
 ró¿nym sposobom ataku. Oddzia³y zdobywaj± do¶wiadczenie i poziomy
