@@ -6,13 +6,13 @@
 Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	0.8.8
+Version:	0.8.9
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Games/Strategy
 Icon:		wesnoth-icon.xpm
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	54a580a721ea19b8006cedb2766fe6ba
+# Source0-md5:	4a4a0b68d3895dae86337c04812e4952
 # Source0-size:	34172227
 Source1:	%{name}.desktop
 Source2:	%{name}d.init
@@ -112,6 +112,7 @@ fi
 %attr(755,root,root) %{_bindir}/wesnoth
 %attr(755,root,root) %{_bindir}/wmlxgettext
 %{_mandir}/man6/wesnoth.6*
+%lang(de) %{_mandir}/de/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/*
@@ -122,6 +123,7 @@ fi
 %attr(755,root,root) %{_bindir}/wesnothd
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
+%lang(de) %{_mandir}/de/man6/wesnothd.6*
 %endif
 
 %if %{with tools}
@@ -129,8 +131,7 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
-%attr(755,root,root) %{_bindir}/make_translation
-%attr(755,root,root) %{_bindir}/merge_translations
 %attr(755,root,root) %{_bindir}/wesnoth_editor
 %{_mandir}/man6/wesnoth_editor.6*
+%lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
 %endif
