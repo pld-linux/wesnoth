@@ -21,6 +21,7 @@ BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
 BuildRequires:	SDL_ttf-devel >= 2.0
+BuildRequires:	libstdc++-devel
 Requires:	SDL_image >= 1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -54,7 +55,7 @@ Serwer do prowadzenia sieciowych gier Wesnoth.
 Summary:	Tools for Wesnoth
 Summary(pl):	Narzêdzia dla Wesnoth
 Group:		X11/Applications/Games/Strategy
-Requires:	%{name} = %{version}
+Requires:	%{name} = %{version}-%{release}
 
 %description tools
 Map editor and translations tools.
