@@ -13,7 +13,6 @@ Group:		X11/Applications/Games/Strategy
 Icon:		wesnoth-icon.xpm
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
 # Source0-md5:	929c65818cc2fb47227929f253fb1f8c
-# Source0-size:	34172227
 Source1:	%{name}.desktop
 Source2:	%{name}d.init
 URL:		http://www.wesnoth.org
