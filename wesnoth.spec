@@ -6,16 +6,16 @@
 Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	0.7.8
+Version:	0.7.9
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Games/Strategy
 Icon:		wesnoth-icon.xpm
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	cf3d1d963b26c79306a46247ee7a10a8
+# Source0-md5:	e97bbed9767a02061c6209d73c7b00ce
 Source1:	%{name}.desktop
 URL:		http://www.wesnoth.org
-BuildRequires:	SDL-devel >= 1.2
+BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
