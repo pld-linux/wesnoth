@@ -1,0 +1,9 @@
+[Desktop Entry]
+Name=Battle for Wesnoth
+Comment=Strategy game
+Comment[pl]=Strategiczna gra
+Exec=wesnoth
+Icon=wesnoth-icon.png
+Terminal=false
+Type=Application
+Encoding=UTF-8
