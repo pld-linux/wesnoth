@@ -36,8 +36,9 @@ carried over from one scenario to the next campaign.
 Battle for Wesnoth jest strategiczn± gr± fantasy. Batalia o kontrolê
 nad wsiami przy pomocy ró¿nego rodzaju oddzia³ów, które maj± przewagê
 lub jej brak w odmiennym ukszta³towaniu terenu i przeciwko ró¿nym
-sposobom ataku. Oddzia³y zdobywaj± do¶wiadczenie i poziomy 
-zaawansowania i s± przenoszone z jednej scenerii do nastêpnej kampanii.
+sposobom ataku. Oddzia³y zdobywaj± do¶wiadczenie i poziomy
+zaawansowania i s± przenoszone z jednej scenerii do nastêpnej
+kampanii.
 
 %package server
 Summary:	Network server for Wesnoth
@@ -91,17 +92,17 @@ rm -rf $RPM_BUILD_ROOT
 %post server
 /sbin/chkconfig --add wesnothd
 if [ -f /var/lock/subsys/wesnothd ]; then
-        /etc/rc.d/init.d/wesnothd restart >&2
+	/etc/rc.d/init.d/wesnothd restart >&2
 else
-        echo "Run \"/etc/rc.d/init.d/wesnothd start\" to start wesnothd." >&2
+	echo "Run \"/etc/rc.d/init.d/wesnothd start\" to start wesnothd." >&2
 fi
 
 %preun server
 if [ "$1" = "0" ]; then
-        if [ -f /var/lock/subsys/wesnothd ]; then
-                /etc/rc.d/init.d/wesnothd stop
-        fi
-        /sbin/chkconfig --del wesnothd
+	if [ -f /var/lock/subsys/wesnothd ]; then
+		/etc/rc.d/init.d/wesnothd stop
+	fi
+	/sbin/chkconfig --del wesnothd
 fi
 
 %files
