@@ -6,13 +6,13 @@
 Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	0.7.11
+Version:	0.8
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Games/Strategy
 Icon:		wesnoth-icon.xpm
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	6eee8a3495aec8d5e509f15bdb7790db
+# Source0-md5:	c6258d08645a97c311c9538128f5af6e
 Source1:	%{name}.desktop
 Source2:	%{name}d.init
 URL:		http://www.wesnoth.org
@@ -32,17 +32,17 @@ types of attacks. Units gain experience and advance levels, and are
 carried over from one scenario to the next campaign.
 
 %description -l pl
-Battle for Wesnoth jest strategiczn± gr± fantasy. Batalia o
-kontrolê nad wsiami przy pomocy ró¿nego rodzaju oddzia³ów, które maj±
-przewagê lub jej brak w odmiennym ukszta³towaniu terenu i przeciwko
-ró¿nym sposobom ataku. Oddzia³y zdobywaj± do¶wiadczenie i poziomy
+Battle for Wesnoth jest strategiczn± gr± fantasy. Batalia o kontrolê
+nad wsiami przy pomocy ró¿nego rodzaju oddzia³ów, które maj± przewagê
+lub jej brak w odmiennym ukszta³towaniu terenu i przeciwko ró¿nym
+sposobom ataku. Oddzia³y zdobywaj± do¶wiadczenie i poziomy
 zaawansowania i s± przenoszene z jednej scenerii do nastêpnej kampani.
 
 %package server
 Summary:	Network server for Wesnoth
 Summary(pl):	Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
-Requires(post,preun):   /sbin/chkconfig
+Requires(post,preun):	/sbin/chkconfig
 
 %description server
 Server for playing networked games of Wesnoth.
