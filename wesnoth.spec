@@ -7,13 +7,14 @@ Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	0.7.9
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Games/Strategy
 Icon:		wesnoth-icon.xpm
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
 # Source0-md5:	e97bbed9767a02061c6209d73c7b00ce
 Source1:	%{name}.desktop
+Source2:	%{name}d.init
 URL:		http://www.wesnoth.org
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
@@ -41,6 +42,7 @@ zaawansowania i s± przenoszene z jednej scenerii do nastêpnej kampani.
 Summary:	Network server for Wesnoth
 Summary(pl):	Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
+Requires(post,preun):   /sbin/chkconfig
 
 %description server
 Server for playing networked games of Wesnoth.
@@ -73,15 +75,33 @@ Edytor map i narzêdzia do t³umaczeñ.
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
+install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 install images/wesnoth-icon.png $RPM_BUILD_ROOT%{_pixmapsdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 
 %clean
 rm -rf $RPM_BUILD_ROOT
+
+%post server
+/sbin/chkconfig --add wesnothd
+if [ -f /var/lock/subsys/wesnothd ]; then
+        /etc/rc.d/init.d/wesnothd restart >&2
+else
+        echo "Run \"/etc/rc.d/init.d/wesnothd start\" to start wesnothd." >&2
+fi
+
+%preun server
+if [ "$1" = "0" ]; then
+        if [ -f /var/lock/subsys/wesnothd ]; then
+                /etc/rc.d/init.d/wesnothd stop
+        fi
+        /sbin/chkconfig --del wesnothd
+fi
 
 %files
 %defattr(644,root,root,755)
@@ -96,6 +116,7 @@ rm -rf $RPM_BUILD_ROOT
 %files server
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/wesnothd
+%attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
 %endif
 
