@@ -1,0 +1,49 @@
+#!/bin/sh
+#
+# chkconfig:	345 90 12
+# description:	wesnothd games server
+#
+# wesnothd	wesnothd server
+
+# Source function library
+. /etc/rc.d/init.d/functions
+ 
+# Get service config
+[ -f /etc/sysconfig/wesnothd ] && . /etc/sysconfig/wesnothd
+
+RETVAL=0
+case "$1" in
+  start)
+	if [ ! -f /var/lock/subsys/wesnothd ]; then
+		msg_starting wesnothd
+		daemon "su - nobody -s /bin/sh -c '/usr/bin/wesnothd &'"
+		RETVAL=$?
+		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/wesnothd
+	else
+		msg_already_running wesnothd
+	fi
+	;;
+  stop)
+	if [ -f /var/lock/subsys/wesnothd ]; then
+		msg_stopping wesnothd
+		killproc wesnothd
+		rm /var/lock/subsys/wesnothd
+	else
+		msg_not_running wesnothd
+	fi
+	;;
+  status)
+	status wesnothd
+	exit $?
+	;;
+  restart|force-reload)
+	$0 stop
+	$0 start
+	exit $?
+	;;
+  *)
+	msg_usage "$0 {start|stop|restart|force-reload|status}"
+	exit 3
+esac
+ 
+exit $RETVAL
