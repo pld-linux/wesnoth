@@ -6,5 +6,6 @@ Exec=wesnoth
 Icon=wesnoth-icon.png
 Terminal=false
 Type=Application
+Categories=Application;Game;ArcadeGame;
 Encoding=UTF-8
 # vi: encoding=utf-8
