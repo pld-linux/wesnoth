@@ -19,7 +19,8 @@ BuildRequires:	SDL-devel >= 1.2
 BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
-BuildRequires:	SDL_ttf-devel >= 1.2
+BuildRequires:	SDL_ttf-devel >= 2.0
+Requires:	SDL_image >= 1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
