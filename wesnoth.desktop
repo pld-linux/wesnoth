@@ -7,3 +7,4 @@ Icon=wesnoth-icon.png
 Terminal=false
 Type=Application
 Encoding=UTF-8
+# vi: encoding=utf-8
