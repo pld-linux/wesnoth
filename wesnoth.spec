@@ -15,7 +15,7 @@ Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
 # Source0-md5:	929c65818cc2fb47227929f253fb1f8c
 Source1:	%{name}.desktop
 Source2:	%{name}d.init
-URL:		http://www.wesnoth.org
+URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
