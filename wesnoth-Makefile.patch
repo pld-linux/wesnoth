@@ -1,0 +1,22 @@
+diff -burN wesnoth-0.9.4.orig/src/Makefile.am wesnoth-0.9.4/src/Makefile.am
+--- wesnoth-0.9.4.orig/src/Makefile.am	2005-07-25 21:01:26.684348360 +0200
++++ wesnoth-0.9.4/src/Makefile.am	2005-07-25 21:02:28.591936976 +0200
+@@ -582,7 +582,6 @@
+ if SERVER
+ install-exec-hook:
+ 	mkdir -p -m 0700 $(DESTDIR)$(fifodir)
+-	chown $(serveruid):$(servergid) $(DESTDIR)$(fifodir)
+ 
+ uninstall-hook:
+ 	rm -rf $(DESTDIR)$(fifodir)
+diff -burN wesnoth-0.9.4.orig/src/Makefile.in wesnoth-0.9.4/src/Makefile.in
+--- wesnoth-0.9.4.orig/src/Makefile.in	2005-07-25 21:01:26.684348360 +0200
++++ wesnoth-0.9.4/src/Makefile.in	2005-07-25 21:02:42.860767784 +0200
+@@ -1526,7 +1526,6 @@
+ 
+ @SERVER_TRUE@install-exec-hook:
+ @SERVER_TRUE@	mkdir -p -m 0700 $(DESTDIR)$(fifodir)
+-@SERVER_TRUE@	chown $(serveruid):$(servergid) $(DESTDIR)$(fifodir)
+ 
+ @SERVER_TRUE@uninstall-hook:
+ @SERVER_TRUE@	rm -rf $(DESTDIR)$(fifodir)
