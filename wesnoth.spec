@@ -1,7 +1,7 @@
 #
 # Conditional build
 %bcond_without	server	# without server
-%bcond_without 	tools	# without tools
+%bcond_without	tools	# without tools
 #
 Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
