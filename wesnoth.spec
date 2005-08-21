@@ -7,7 +7,7 @@ Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	0.9.4
-Release:	1
+Release:	2
 License:	GPL v2
 Group:		X11/Applications/Games/Strategy
 Icon:		wesnoth-icon.xpm
@@ -78,8 +78,7 @@ Edytor map i narzêdzia do t³umaczeñ.
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir}}
-install -d $RPM_BUILD_ROOT/etc/rc.d/init.d
+install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/rc.d/init.d}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -127,6 +126,7 @@ fi
 %{_mandir}/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
+%dir /var/run/wesnothd
 %endif
 
 %if %{with tools}
