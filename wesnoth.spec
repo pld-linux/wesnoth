@@ -6,13 +6,13 @@
 Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	0.9.6
+Version:	0.9.7
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Games/Strategy
 Icon:		wesnoth-icon.xpm
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
-# Source0-md5:	d3bb0d492ac01e30c02f882f8d45d9fc
+# Source0-md5:	c2c863c58a3eb7de5fce882d8a1944e1
 Source1:	%{name}.desktop
 Source2:	%{name}d.init
 Patch0:		%{name}-Makefile.patch
@@ -113,6 +113,7 @@ fi
 %attr(755,root,root) %{_bindir}/wmlxgettext
 %{_mandir}/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
+%lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
@@ -125,6 +126,7 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
+%lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %dir /var/run/wesnothd
 %endif
@@ -137,5 +139,6 @@ fi
 %attr(755,root,root) %{_bindir}/wesnoth_editor
 %{_mandir}/man6/wesnoth_editor.6*
 %lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
+%lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
 %endif
