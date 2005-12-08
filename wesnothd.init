@@ -7,7 +7,7 @@
 
 # Source function library
 . /etc/rc.d/init.d/functions
- 
+
 # Get service config
 [ -f /etc/sysconfig/wesnothd ] && . /etc/sysconfig/wesnothd
 
@@ -45,5 +45,5 @@ case "$1" in
 	msg_usage "$0 {start|stop|restart|force-reload|status}"
 	exit 3
 esac
- 
+
 exit $RETVAL
