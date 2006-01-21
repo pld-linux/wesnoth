@@ -10,7 +10,6 @@ Version:	1.0.2
 Release:	1
 License:	GPL v2
 Group:		X11/Applications/Games/Strategy
-Icon:		wesnoth-icon.xpm
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
 # Source0-md5:	1d2a26062ce1c90cbf10845023f9435c
 Source1:	%{name}.desktop
