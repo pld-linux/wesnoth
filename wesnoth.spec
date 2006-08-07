@@ -21,7 +21,11 @@ BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
 BuildRequires:	SDL_ttf-devel >= 2.0
+BuildRequires:	autoconf >= 2.57
+BuildRequires:	automake >= 1:1.9
+BuildRequires:	gettext-devel
 BuildRequires:	libstdc++-devel
+BuildRequires:	libtool >= 2:1.5
 BuildRequires:	zipios++-devel
 Requires:	SDL_image >= 1.2
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -71,7 +75,6 @@ Edytor map i narzêdzia do t³umaczeñ.
 
 %build
 %{__gettextize}
-%{__libtoolize}
 %{__aclocal}
 %{__autoconf}
 %{__autoheader}
