@@ -129,6 +129,7 @@ fi
 %lang(en_GB) %{_mandir}/en_GB/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
+%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
@@ -147,6 +148,7 @@ fi
 %lang(en_GB) %{_mandir}/en_GB/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
+%lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
@@ -166,6 +168,7 @@ fi
 %lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
 %lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
+%lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth_editor.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
