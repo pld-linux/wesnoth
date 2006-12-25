@@ -27,6 +27,7 @@ BuildRequires:	automake >= 1:1.9
 BuildRequires:	gettext-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	zipios++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -83,7 +84,8 @@ Edytor map i narzêdzia do t³umaczeñ.
 %configure \
 	%{?with_server:--enable-server} \
 	%{?with_tools:--enable-editor} \
-	%{?with_tools:--enable-tools}
+	%{?with_tools:--enable-tools} \
+	--with-zipios
 %{__make}
 
 %install
@@ -97,6 +99,17 @@ install images/wesnoth-icon.png $RPM_BUILD_ROOT%{_pixmapsdir}
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 
+mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{gl_ES,gl}
+mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb} 
+
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
+
+# unsupported(?)
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
+
+# the same as manuals from %{_mandir}/man?
+rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
+
 %find_lang %{name} --all-name
 
 %clean
@@ -104,17 +117,11 @@ rm -rf $RPM_BUILD_ROOT
 
 %post server
 /sbin/chkconfig --add wesnothd
-if [ -f /var/lock/subsys/wesnothd ]; then
-	/etc/rc.d/init.d/wesnothd restart >&2
-else
-	echo "Run \"/etc/rc.d/init.d/wesnothd start\" to start wesnothd." >&2
-fi
+%service wesnothd restart
 
 %preun server
 if [ "$1" = "0" ]; then
-	if [ -f /var/lock/subsys/wesnothd ]; then
-		/etc/rc.d/init.d/wesnothd stop
-	fi
+	%service wesnothd stop
 	/sbin/chkconfig --del wesnothd
 fi
 
@@ -126,7 +133,6 @@ fi
 %{_mandir}/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
-%lang(en_GB) %{_mandir}/en_GB/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth.6*
@@ -145,7 +151,6 @@ fi
 %{_mandir}/man6/wesnothd.6*
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
-%lang(en_GB) %{_mandir}/en_GB/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
@@ -164,7 +169,6 @@ fi
 %{_mandir}/man6/wesnoth_editor.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
 %lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
-%lang(en_GB) %{_mandir}/en_GB/man6/wesnoth_editor.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
 %lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
