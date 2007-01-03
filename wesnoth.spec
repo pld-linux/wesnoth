@@ -7,7 +7,7 @@ Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	1.2
-Release:	1
+Release:	2
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
@@ -51,6 +51,10 @@ Summary:	Network server for Wesnoth
 Summary(pl):	Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires(post,preun):	/sbin/chkconfig
+Requires(postun):	/usr/sbin/groupdel
+Requires(postun):	/usr/sbin/userdel
+Requires(pre):	/usr/sbin/groupadd
+Requires(pre):	/usr/sbin/useradd
 
 %description server
 Server for playing networked games of Wesnoth.
@@ -115,6 +119,10 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%pre server
+%groupadd -P %{name}-server -g 178  wesnothd
+%useradd -P %{name}-server -u 178 -d /var/run/wesnothd -c "Wesnothd User" -g wesnothd wesnothd
+
 %post server
 /sbin/chkconfig --add wesnothd
 %service wesnothd restart
@@ -123,6 +131,8 @@ rm -rf $RPM_BUILD_ROOT
 if [ "$1" = "0" ]; then
 	%service wesnothd stop
 	/sbin/chkconfig --del wesnothd
+	%userremove wesnothd
+	%groupremove wesnothd
 fi
 
 %files -f %{name}.lang
@@ -157,7 +167,7 @@ fi
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
-%dir /var/run/wesnothd
+%attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
 %if %{with tools}
