@@ -16,7 +16,7 @@ case "$1" in
   start)
 	if [ ! -f /var/lock/subsys/wesnothd ]; then
 		msg_starting wesnothd
-		daemon "su - nobody -s /bin/sh -c '/usr/bin/wesnothd &'"
+		daemon "su - wesnothd -s /bin/sh -c '/usr/bin/wesnothd -p 14999 &'"
 		RETVAL=$?
 		[ $RETVAL -eq 0 ] && touch /var/lock/subsys/wesnothd
 	else
