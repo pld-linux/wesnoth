@@ -7,7 +7,7 @@ Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	1.2
-Release:	2
+Release:	3
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.gz
@@ -50,6 +50,7 @@ kampanii.
 Summary:	Network server for Wesnoth
 Summary(pl):	Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
+Requires:	rc-scripts >= 0.4.0.17
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
