@@ -4,7 +4,7 @@
 %bcond_without	tools	# without tools
 #
 Summary:	Strategy game with a fantasy theme
-Summary(pl):	Strategiczna gra z motywem fantasy
+Summary(pl.UTF-8):   Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	1.2.1
 Release:	1
@@ -38,17 +38,17 @@ disadvantages in different types of terrains and against different
 types of attacks. Units gain experience and advance levels, and are
 carried over from one scenario to the next campaign.
 
-%description -l pl
-Battle for Wesnoth jest strategiczn± gr± fantasy. Batalia o kontrolê
-nad wsiami przy pomocy ró¿nego rodzaju oddzia³ów, które maj± przewagê
-lub jej brak w odmiennym ukszta³towaniu terenu i przeciwko ró¿nym
-sposobom ataku. Oddzia³y zdobywaj± do¶wiadczenie i poziomy
-zaawansowania i s± przenoszone z jednej scenerii do nastêpnej
+%description -l pl.UTF-8
+Battle for Wesnoth jest strategicznÄ… grÄ… fantasy. Batalia o kontrolÄ™
+nad wsiami przy pomocy rÃ³Å¼nego rodzaju oddziaÅ‚Ã³w, ktÃ³re majÄ… przewagÄ™
+lub jej brak w odmiennym uksztaÅ‚towaniu terenu i przeciwko rÃ³Å¼nym
+sposobom ataku. OddziaÅ‚y zdobywajÄ… doÅ›wiadczenie i poziomy
+zaawansowania i sÄ… przenoszone z jednej scenerii do nastÄ™pnej
 kampanii.
 
 %package server
 Summary:	Network server for Wesnoth
-Summary(pl):	Sieciowy serwer dla Wesnoth
+Summary(pl.UTF-8):   Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires:	rc-scripts >= 0.4.0.17
 Requires(post,preun):	/sbin/chkconfig
@@ -60,20 +60,20 @@ Requires(pre):	/usr/sbin/useradd
 %description server
 Server for playing networked games of Wesnoth.
 
-%description server -l pl
+%description server -l pl.UTF-8
 Serwer do prowadzenia sieciowych gier Wesnoth.
 
 %package tools
 Summary:	Tools for Wesnoth
-Summary(pl):	Narzêdzia dla Wesnoth
+Summary(pl.UTF-8):   NarzÄ™dzia dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires:	%{name} = %{version}-%{release}
 
 %description tools
 Map editor and translations tools.
 
-%description tools -l pl
-Edytor map i narzêdzia do t³umaczeñ.
+%description tools -l pl.UTF-8
+Edytor map i narzÄ™dzia do tÅ‚umaczeÅ„.
 
 %prep
 %setup -q
