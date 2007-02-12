@@ -4,7 +4,7 @@
 %bcond_without	tools	# without tools
 #
 Summary:	Strategy game with a fantasy theme
-Summary(pl.UTF-8):   Strategiczna gra z motywem fantasy
+Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	1.2.1
 Release:	1
@@ -48,7 +48,7 @@ kampanii.
 
 %package server
 Summary:	Network server for Wesnoth
-Summary(pl.UTF-8):   Sieciowy serwer dla Wesnoth
+Summary(pl.UTF-8):	Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires:	rc-scripts >= 0.4.0.17
 Requires(post,preun):	/sbin/chkconfig
@@ -65,7 +65,7 @@ Serwer do prowadzenia sieciowych gier Wesnoth.
 
 %package tools
 Summary:	Tools for Wesnoth
-Summary(pl.UTF-8):   Narzędzia dla Wesnoth
+Summary(pl.UTF-8):	Narzędzia dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires:	%{name} = %{version}-%{release}
 
