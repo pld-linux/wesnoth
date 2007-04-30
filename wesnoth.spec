@@ -27,7 +27,9 @@ BuildRequires:	automake >= 1:1.9
 BuildRequires:	gettext-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
+BuildRequires:	python-devel
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpm-pythonprov
 BuildRequires:	zipios++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
