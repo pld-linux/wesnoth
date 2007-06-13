@@ -1,3 +1,5 @@
+# TODO
+# - package rest of developement tools
 #
 # Conditional build
 %bcond_without	server	# without server
@@ -6,12 +8,12 @@
 Summary:	Strategy game with a fantasy theme
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.3.2
+Version:	1.3.3
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	c77ab2ef9089a795562d7d5dba831cbc
+# Source0-md5:	af33c9370c353fd3a97b3ecd561bcf0e
 Source1:	%{name}.desktop
 Source2:	%{name}d.init
 Patch0:		%{name}-Makefile.patch
@@ -142,7 +144,7 @@ fi
 %defattr(644,root,root,755)
 %doc changelog README MANUAL*
 %attr(755,root,root) %{_bindir}/wesnoth
-%attr(755,root,root) %{_bindir}/wmlxgettext
+#%attr(755,root,root) %{_bindir}/wmlxgettext
 %{_mandir}/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
