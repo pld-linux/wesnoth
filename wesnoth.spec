@@ -8,12 +8,12 @@
 Summary:	Strategy game with a fantasy theme
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.3.6a
+Version:	1.3.7
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	55a553fa263a306f29ed8455dd2c91bc
+# Source0-md5:	ef6f15484bc0f833a6d62376340cc2a9
 Source1:	%{name}.desktop
 Source2:	%{name}d.init
 Patch0:		%{name}-Makefile.patch
@@ -24,7 +24,7 @@ BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
 BuildRequires:	SDL_ttf-devel >= 2.0
-BuildRequires:	autoconf >= 2.57
+BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	gettext-devel
 BuildRequires:	libstdc++-devel
@@ -80,7 +80,7 @@ Map editor and translations tools.
 Edytor map i narzędzia do tłumaczeń.
 
 %prep
-%setup -q -n %{name}-1.3.6
+%setup -q
 %patch0 -p1
 %patch1 -p1
 
@@ -144,16 +144,21 @@ fi
 %defattr(644,root,root,755)
 %doc changelog README MANUAL*
 %attr(755,root,root) %{_bindir}/wesnoth
-#%attr(755,root,root) %{_bindir}/wmlxgettext
 %{_mandir}/man6/wesnoth.6*
+%lang(bg) %{_mandir}/bg/man6/wesnoth.6*
+%lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
-#%lang(it) %{_mandir}/it/man6/wesnoth.6*
+%lang(hu) %{_mandir}/hu/man6/wesnoth.6*
+%lang(it) %{_mandir}/it/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth.6*
+%lang(pl) %{_mandir}/pl/man6/wesnoth.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
+%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
+%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
@@ -165,14 +170,20 @@ fi
 %attr(755,root,root) %{_bindir}/wesnothd
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
+%lang(bg) %{_mandir}/bg/man6/wesnothd.6*
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
+%lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
-#%lang(it) %{_mandir}/it/man6/wesnothd.6*
+%lang(hu) %{_mandir}/hu/man6/wesnothd.6*
+%lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
+%lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
+%lang(ru) %{_mandir}/ru/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
+%lang(sr) %{_mandir}/sr/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
@@ -184,13 +195,19 @@ fi
 %attr(755,root,root) %{_bindir}/exploder
 %attr(755,root,root) %{_bindir}/wesnoth_editor
 %{_mandir}/man6/wesnoth_editor.6*
+%lang(bg) %{_mandir}/bg/man6/wesnoth_editor.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
+%lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
 %lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
+%lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
 %lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
+%lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth_editor.6*
+%lang(ru) %{_mandir}/ru/man6/wesnoth_editor.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
+%lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
 %endif
