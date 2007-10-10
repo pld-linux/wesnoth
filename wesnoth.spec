@@ -6,12 +6,12 @@
 Summary:	Strategy game with a fantasy theme
 Summary(pl):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.2.6
-Release:	2
+Version:	1.2.7
+Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	accb3d5e3c4423324a17755571ac9204
+# Source0-md5:	f80482cf0dc4379c0bbbf6337f43ea2c
 Source1:	%{name}.desktop
 Source2:	%{name}d.init
 Patch0:		%{name}-Makefile.patch
@@ -26,6 +26,7 @@ BuildRequires:	SDL_ttf-devel >= 2.0
 BuildRequires:	autoconf >= 2.57
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	gettext-devel
+BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	rpmbuild(macros) >= 1.268
@@ -107,7 +108,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{gl_ES,gl}
-mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb} 
+mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
 
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
 
