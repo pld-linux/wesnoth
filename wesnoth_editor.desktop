@@ -1,0 +1,12 @@
+[Desktop Entry]
+Name=Battle for Wesnoth (Map editor)
+Name[pl]=Battle for Wesnoth (Edytor map)
+Comment=Map editor for strategy game Battle for Wesnoth
+Comment[pl]=Edytor map do gry strategicznej Battle for Wesnoth
+Exec=wesnoth_editor
+Icon=wesnoth_editor-icon.png
+Terminal=false
+Type=Application
+Categories=Game;StrategyGame;
+Encoding=UTF-8
+# vi: encoding=utf-8
