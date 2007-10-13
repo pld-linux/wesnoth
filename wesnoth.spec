@@ -1,7 +1,7 @@
 # TODO
 # - package rest of developement tools
 # - rename language files sr@latin to sr@Latn and include them
-# - use desktop file included with project
+# - use desktop file included with project (consider which one are better)
 #
 # Conditional build
 %bcond_without	server	# without server
@@ -17,7 +17,8 @@ Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
 # Source0-md5:	7d49c0aeb396c567a3c09c7dd8904f06
 Source1:	%{name}.desktop
-Source2:	%{name}d.init
+Source2:	%{name}_editor.desktop
+Source3:	%{name}d.init
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-locale_dir.patch
 URL:		http://www.wesnoth.org/
@@ -96,6 +97,8 @@ Edytor map i narzędzia do tłumaczeń.
 	%{?with_server:--enable-server} \
 	%{?with_tools:--enable-editor} \
 	%{?with_tools:--enable-tools} \
+	--docdir=%{_docdir}/%{name}-%{version} \
+	--with-icondir=%{_pixmapsdir} \
 	--with-zipios
 %{__make}
 
@@ -106,9 +109,13 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-install images/wesnoth-icon.png $RPM_BUILD_ROOT%{_pixmapsdir}
+# install additional docs
+install changelog README  $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
+
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE2} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
+install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
+install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{gl_ES,gl}
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb} 
@@ -144,7 +151,7 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc changelog README doc/manual/manual.txt
+%doc %{_docdir}/%{name}-%{version}
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
 %lang(bg) %{_mandir}/bg/man6/wesnoth.6*
@@ -165,7 +172,7 @@ fi
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
-%{_pixmapsdir}/*
+%{_pixmapsdir}/%{name}-icon.png
 
 %if %{with server}
 %files server
@@ -215,4 +222,6 @@ fi
 %lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
+%{_desktopdir}/%{name}_editor.desktop
+%{_pixmapsdir}/%{name}_editor-icon.png
 %endif
