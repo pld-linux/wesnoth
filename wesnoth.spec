@@ -10,12 +10,12 @@
 Summary:	Strategy game with a fantasy theme
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.3.10
+Version:	1.3.11
 Release:	1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	227f0649e365e3f4139d240d31a7c843
+# Source0-md5:	a6e064156919b081abba19fb57544de9
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -30,11 +30,12 @@ BuildRequires:	SDL_ttf-devel >= 2.0
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	gettext-devel
+BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	python-devel
-BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	rpm-pythonprov
+BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	zipios++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -57,12 +58,12 @@ kampanii.
 Summary:	Network server for Wesnoth
 Summary(pl.UTF-8):	Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
-Requires:	rc-scripts >= 0.4.0.17
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
+Requires:	rc-scripts >= 0.4.0.17
 
 %description server
 Server for playing networked games of Wesnoth.
@@ -118,7 +119,7 @@ install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{gl_ES,gl}
-mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb} 
+mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
 
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
 
