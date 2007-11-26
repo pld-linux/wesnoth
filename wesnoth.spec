@@ -52,12 +52,12 @@ kampanii.
 Summary:	Network server for Wesnoth
 Summary(pl):	Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
-Requires:	rc-scripts >= 0.4.0.17
 Requires(post,preun):	/sbin/chkconfig
 Requires(postun):	/usr/sbin/groupdel
 Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
+Requires:	rc-scripts >= 0.4.0.17
 
 %description server
 Server for playing networked games of Wesnoth.
