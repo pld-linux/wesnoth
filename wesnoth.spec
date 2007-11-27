@@ -76,7 +76,7 @@ Serwer do prowadzenia sieciowych gier Wesnoth.
 Summary:	Tools for Wesnoth
 Summary(pl.UTF-8):	Narzędzia dla Wesnoth
 Group:		X11/Applications/Games/Strategy
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description tools
 Map editor and translations tools.
