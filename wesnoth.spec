@@ -2,21 +2,30 @@
 # - package rest of developement tools
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
+# - fix build with fribidi
+# - doesn't build at all
+#   x86_64-pld-linux-g++: unrecognized option '-R/usr/lib'
+#   libwesnoth.a(image.o): In function `image::locator::load_image_file() const':
+#   /home/users/Arvenil/rpm/BUILD/wesnoth-1.3.14/src/image.cpp:274: undefined reference to `IMG_Load'
+#   libwesnoth.a(loadscreen.o): In function `loadscreen':
+#   /home/users/Arvenil/rpm/BUILD/wesnoth-1.3.14/src/loadscreen.cpp:59: undefined reference to `IMG_Load'
+#   /home/users/Arvenil/rpm/BUILD/wesnoth-1.3.14/src/loadscreen.cpp:59: undefined reference to `IMG_Load'
 #
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
+%bcond_with	fribidi	# with Bidirectional language support
 #
 Summary:	Strategy game with a fantasy theme
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.3.12
+Version:	1.3.14
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	c6dfdf6adc887f83a67e4b5ffe09869b
+# Source0-md5:	6730191d9c2d8d7f0bbfec765f27ed89
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -30,6 +39,7 @@ BuildRequires:	SDL_net-devel >= 1.2
 BuildRequires:	SDL_ttf-devel >= 2.0
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
+%{?with_fribidi:BuildRequires:	fribidi-devel}
 BuildRequires:	gettext-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
@@ -91,7 +101,7 @@ Edytor map i narzędzia do tłumaczeń.
 
 %build
 %{__gettextize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -99,6 +109,7 @@ Edytor map i narzędzia do tłumaczeń.
 	%{?with_server:--enable-server} \
 	%{?with_tools:--enable-editor} \
 	%{?with_tools:--enable-tools} \
+	--with%{!?with_fribidi:out}-fribidi \
 	--docdir=%{_docdir}/%{name}-%{version} \
 	--with-icondir=%{_pixmapsdir} \
 	--with-zipios
