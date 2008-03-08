@@ -3,13 +3,6 @@
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
 # - fix build with fribidi
-# - doesn't build at all
-#   x86_64-pld-linux-g++: unrecognized option '-R/usr/lib'
-#   libwesnoth.a(image.o): In function `image::locator::load_image_file() const':
-#   /home/users/Arvenil/rpm/BUILD/wesnoth-1.3.14/src/image.cpp:274: undefined reference to `IMG_Load'
-#   libwesnoth.a(loadscreen.o): In function `loadscreen':
-#   /home/users/Arvenil/rpm/BUILD/wesnoth-1.3.14/src/loadscreen.cpp:59: undefined reference to `IMG_Load'
-#   /home/users/Arvenil/rpm/BUILD/wesnoth-1.3.14/src/loadscreen.cpp:59: undefined reference to `IMG_Load'
 #
 # Conditional build
 %bcond_without	server	# without server
@@ -19,13 +12,13 @@
 Summary:	Strategy game with a fantasy theme
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.3.14
-Release:	1
+Version:	1.4
+Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	6730191d9c2d8d7f0bbfec765f27ed89
+# Source0-md5:	a2e8e4b32292f16842453e4c836429b2
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -39,6 +32,7 @@ BuildRequires:	SDL_net-devel >= 1.2
 BuildRequires:	SDL_ttf-devel >= 2.0
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
+BuildRequires:	boost-devel >= 1.33
 %{?with_fribidi:BuildRequires:	fribidi-devel}
 BuildRequires:	gettext-devel
 BuildRequires:	libpng-devel
@@ -167,7 +161,6 @@ fi
 %doc %{_docdir}/%{name}-%{version}
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
-%lang(bg) %{_mandir}/bg/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
 %lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
@@ -176,13 +169,12 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
+%lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
-%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
-%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
-%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
+%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}-icon.png
@@ -193,7 +185,6 @@ fi
 %attr(755,root,root) %{_bindir}/wesnothd
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
-%lang(bg) %{_mandir}/bg/man6/wesnothd.6*
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
 %lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
@@ -202,13 +193,12 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
+%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
-%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
-%lang(ru) %{_mandir}/ru/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
-%lang(sr) %{_mandir}/sr/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
+%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
@@ -219,7 +209,6 @@ fi
 %attr(755,root,root) %{_bindir}/exploder
 %attr(755,root,root) %{_bindir}/wesnoth_editor
 %{_mandir}/man6/wesnoth_editor.6*
-%lang(bg) %{_mandir}/bg/man6/wesnoth_editor.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
 %lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
 %lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
@@ -228,13 +217,12 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
 %lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
+%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
-%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth_editor.6*
-%lang(ru) %{_mandir}/ru/man6/wesnoth_editor.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
-%lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
+%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
 %{_pixmapsdir}/%{name}_editor-icon.png
 %endif
