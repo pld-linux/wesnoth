@@ -1,22 +1,23 @@
 # TODO
-# - package rest of developement tools
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
+# - dont know what should I do with lt man pages
 #
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
+%bcond_without	fribidi	# without Bidirectional language support
 #
 Summary:	Strategy game with a fantasy theme
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.2.8
-Release:	2
+Version:	1.4
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	99d17b23d2ea4dc3a008f5c69cd43789
+# Source0-md5:	a2e8e4b32292f16842453e4c836429b2
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -30,6 +31,8 @@ BuildRequires:	SDL_net-devel >= 1.2
 BuildRequires:	SDL_ttf-devel >= 2.0
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
+BuildRequires:	boost-devel >= 1.33
+%{?with_fribidi:BuildRequires:	fribidi-devel}
 BuildRequires:	gettext-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
@@ -48,12 +51,11 @@ types of attacks. Units gain experience and advance levels, and are
 carried over from one scenario to the next campaign.
 
 %description -l pl.UTF-8
-Battle for Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę
-nad wsiami przy pomocy różnego rodzaju oddziałów, które mają przewagę
-lub jej brak w odmiennym ukształtowaniu terenu i przeciwko różnym
-sposobom ataku. Oddziały zdobywają doświadczenie i poziomy
-zaawansowania i są przenoszone z jednej scenerii do następnej
-kampanii.
+Bitwa o Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę nad
+wsiami przy pomocy różnego rodzaju oddziałów, które mają przewagę lub
+jej brak w odmiennym ukształtowaniu terenu i przeciwko różnym sposobom
+ataku. Oddziały zdobywają doświadczenie i poziomy zaawansowania i są
+przenoszone z jednej scenerii do następnej kampanii.
 
 %package server
 Summary:	Network server for Wesnoth
@@ -91,7 +93,7 @@ Edytor map i narzędzia do tłumaczeń.
 
 %build
 %{__gettextize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
 %{__autoheader}
 %{__automake}
@@ -99,6 +101,7 @@ Edytor map i narzędzia do tłumaczeń.
 	%{?with_server:--enable-server} \
 	%{?with_tools:--enable-editor} \
 	%{?with_tools:--enable-tools} \
+	--with%{!?with_fribidi:out}-fribidi \
 	--docdir=%{_docdir}/%{name}-%{version} \
 	--with-icondir=%{_pixmapsdir} \
 	--with-zipios
@@ -156,19 +159,23 @@ fi
 %doc %{_docdir}/%{name}-%{version}
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
-%lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
+%lang(da) %{_mandir}/da/man6/wesnoth.6*
+%lang(de) %{_mandir}/de/man6/wesnoth.6*
+%lang(es) %{_mandir}/es/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
+%lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
+#%lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth.6*
-%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
-%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
+%lang(pl) %{_mandir}/pl/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
+%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
-#%{_pixmapsdir}/%{name}-icon.png
+%{_pixmapsdir}/%{name}-icon.png
 
 %if %{with server}
 %files server
@@ -176,16 +183,20 @@ fi
 %attr(755,root,root) %{_bindir}/wesnothd
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
-%lang(de) %{_mandir}/de/man6/wesnoth.6*
-%lang(cs) %{_mandir}/cs/man6/wesnoth.6*
-%lang(fr) %{_mandir}/fr/man6/wesnoth.6*
-%lang(it) %{_mandir}/it/man6/wesnoth.6*
-%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
-%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
-%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
-%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
-%lang(sk) %{_mandir}/sk/man6/wesnoth.6*
-%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
+%lang(cs) %{_mandir}/cs/man6/wesnothd.6*
+%lang(da) %{_mandir}/da/man6/wesnothd.6*
+%lang(de) %{_mandir}/de/man6/wesnothd.6*
+%lang(es) %{_mandir}/es/man6/wesnothd.6*
+%lang(fr) %{_mandir}/fr/man6/wesnothd.6*
+%lang(hu) %{_mandir}/hu/man6/wesnothd.6*
+%lang(it) %{_mandir}/it/man6/wesnothd.6*
+%lang(ja) %{_mandir}/ja/man6/wesnothd.6*
+#%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
+%lang(nl) %{_mandir}/nl/man6/wesnothd.6*
+%lang(pl) %{_mandir}/pl/man6/wesnothd.6*
+%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
+%lang(sv) %{_mandir}/sv/man6/wesnothd.6*
+%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
@@ -195,17 +206,24 @@ fi
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
 %attr(755,root,root) %{_bindir}/wesnoth_editor
+%attr(755,root,root) %{_bindir}/wmlindent
+%attr(755,root,root) %{_bindir}/wmllint
+%attr(755,root,root) %{_bindir}/wmlscope
 %{_mandir}/man6/wesnoth_editor.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
+%lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
 %lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
+%lang(es) %{_mandir}/es/man6/wesnoth_editor.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
+%lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
 %lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
+#%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
-%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth_editor.6*
-%lang(ru) %{_mandir}/ru/man6/wesnoth_editor.6*
+%lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
+%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
-#%{_pixmapsdir}/%{name}_editor-icon.png
+%{_pixmapsdir}/%{name}_editor-icon.png
 %endif
