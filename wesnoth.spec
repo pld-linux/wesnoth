@@ -1,19 +1,18 @@
 # TODO
-# - package rest of developement tools
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
-# - fix build with fribidi
+# - dont know what should I do with lt man pages
 #
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
-%bcond_with	fribidi	# with Bidirectional language support
+%bcond_without	fribidi	# without Bidirectional language support
 #
 Summary:	Strategy game with a fantasy theme
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	1.4
-Release:	0.1
+Release:	0.2
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
@@ -52,7 +51,7 @@ types of attacks. Units gain experience and advance levels, and are
 carried over from one scenario to the next campaign.
 
 %description -l pl.UTF-8
-Battle for Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę
+Bitwa o Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę
 nad wsiami przy pomocy różnego rodzaju oddziałów, które mają przewagę
 lub jej brak w odmiennym ukształtowaniu terenu i przeciwko różnym
 sposobom ataku. Oddziały zdobywają doświadczenie i poziomy
@@ -169,7 +168,7 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
-%lang(lt) %{_mandir}/lt/man6/wesnoth.6*
+#%lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
@@ -193,7 +192,7 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
-%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
+#%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
@@ -208,6 +207,9 @@ fi
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
 %attr(755,root,root) %{_bindir}/wesnoth_editor
+%attr(755,root,root) %{_bindir}/wmlindent
+%attr(755,root,root) %{_bindir}/wmllint
+%attr(755,root,root) %{_bindir}/wmlscope
 %{_mandir}/man6/wesnoth_editor.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
 %lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
@@ -217,7 +219,7 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
 %lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
-%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
+#%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
