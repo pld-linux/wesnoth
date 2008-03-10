@@ -1,7 +1,6 @@
 # TODO
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
-# - dont know what should I do with lt man pages
 #
 # Conditional build
 %bcond_without	server	# without server
@@ -168,7 +167,7 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
-#%lang(lt) %{_mandir}/lt/man6/wesnoth.6*
+%lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
@@ -192,7 +191,7 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
-#%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
+%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
@@ -219,7 +218,7 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
 %lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
-#%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
+%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
