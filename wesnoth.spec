@@ -1,7 +1,7 @@
 # TODO
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
-# - dont know what should I do with lt man pages
+# - dont know what should I do with sr@latin man pages
 #
 # Conditional build
 %bcond_without	server	# without server
@@ -124,11 +124,12 @@ install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{gl_ES,gl}
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
-
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
+mv -f $RPM_BUILD_ROOT%{_mandir}/{gl_ES,gl}
 
 # unsupported(?)
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
+rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 
 # the same as manuals from %{_mandir}/man?
 rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
@@ -164,14 +165,17 @@ fi
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
+%lang(gl) %{_mandir}/gl/man6/wesnoth.6*
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
-#%lang(lt) %{_mandir}/lt/man6/wesnoth.6*
+%lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
+%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
+%lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
@@ -188,14 +192,17 @@ fi
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
+%lang(gl) %{_mandir}/gl/man6/wesnothd.6*
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
-#%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
+%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
+%lang(sr) %{_mandir}/sr/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
+%lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
@@ -215,14 +222,17 @@ fi
 %lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
 %lang(es) %{_mandir}/es/man6/wesnoth_editor.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
+%lang(gl) %{_mandir}/gl/man6/wesnoth_editor.6*
 %lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
 %lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
-#%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
+%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
 %lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
+%lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
+%lang(tr) %{_mandir}/tr/man6/wesnoth_editor.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
 %{_pixmapsdir}/%{name}_editor-icon.png
