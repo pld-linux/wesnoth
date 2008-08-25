@@ -2,7 +2,9 @@
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
 # - dont know what should I do with sr@latin man pages
-#
+# - /usr/share/wesnoth/data/core/images/terrain/tent.png: ERROR: 
+#	Macintosh HFS Extended version 61389 data (unclean) vasprintf failed 
+#	(Invalid or incomplete multibyte or wide character)
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
@@ -122,9 +124,7 @@ install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 
-mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{gl_ES,gl}
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
-mv -f $RPM_BUILD_ROOT%{_mandir}/{gl_ES,gl}
 
 # unsupported(?)
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
