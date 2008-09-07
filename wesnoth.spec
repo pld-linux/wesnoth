@@ -23,8 +23,6 @@ Source3:	%{name}d.init
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-locale_dir.patch
 URL:		http://www.wesnoth.org/
-# because of png
-BuildRequires:	ImageMagick
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
@@ -114,11 +112,6 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-# Invalid or incomplete multibyte or wide character - but after convert it's OK
-mv $RPM_BUILD_ROOT%{_datadir}/wesnoth/data/core/images/terrain/tent.png{,-}
-convert $RPM_BUILD_ROOT%{_datadir}/wesnoth/data/core/images/terrain/tent.png{-,}
-rm $RPM_BUILD_ROOT%{_datadir}/wesnoth/data/core/images/terrain/tent.png-
 
 # install additional docs
 install changelog README  $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
