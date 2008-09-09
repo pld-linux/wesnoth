@@ -51,11 +51,12 @@ types of attacks. Units gain experience and advance levels, and are
 carried over from one scenario to the next campaign.
 
 %description -l hu.UTF-8
-Battle for Wesnoth (Harc Wesnothért) egy fantasy környezetben játszódó stratégiai játék.
-Harc a falvak megszerzéséért, különböző egységek felhasználásával, amelyeknek
-különböző előnyeik és hátrányaik vannak a különféle terepeken és a különböző
-támadási stílusok ellen. Az egységek tapasztalatot gyűjtenek, és fejlődnek, amelyek
-átvihetők a következő pályára.
+Battle for Wesnoth (Harc Wesnothért) egy fantasy környezetben játszódó
+stratégiai játék. Harc a falvak megszerzéséért, különböző egységek
+felhasználásával, amelyeknek különböző előnyeik és hátrányaik vannak a
+különféle terepeken és a különböző támadási stílusok ellen. Az
+egységek tapasztalatot gyűjtenek, és fejlődnek, amelyek átvihetők a
+következő pályára.
 
 %description -l pl.UTF-8
 Bitwa o Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę nad
