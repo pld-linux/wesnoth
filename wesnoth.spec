@@ -8,15 +8,16 @@
 %bcond_without	fribidi	# without Bidirectional language support
 #
 Summary:	Strategy game with a fantasy theme
+Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.4.4
-Release:	3
+Version:	1.4.5
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	b2260808e94eba12aa7ceaa40fa0ee4d
+# Source0-md5:	09b7b76d4a4eedf502f38df9d551d827
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -49,6 +50,13 @@ disadvantages in different types of terrains and against different
 types of attacks. Units gain experience and advance levels, and are
 carried over from one scenario to the next campaign.
 
+%description -l hu.UTF-8
+Battle for Wesnoth (Harc Wesnothért) egy fantasy környezetben játszódó stratégiai játék.
+Harc a falvak megszerzéséért, különböző egységek felhasználásával, amelyeknek
+különböző előnyeik és hátrányaik vannak a különféle terepeken és a különböző
+támadási stílusok ellen. Az egységek tapasztalatot gyűjtenek, és fejlődnek, amelyek
+átvihetők a következő pályára.
+
 %description -l pl.UTF-8
 Bitwa o Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę nad
 wsiami przy pomocy różnego rodzaju oddziałów, które mają przewagę lub
@@ -70,17 +78,24 @@ Requires:	rc-scripts >= 0.4.0.17
 %description server
 Server for playing networked games of Wesnoth.
 
+%description server -l hu.UTF-8
+Szerver a Wesnoth hálózati játékához.
+
 %description server -l pl.UTF-8
 Serwer do prowadzenia sieciowych gier Wesnoth.
 
 %package tools
 Summary:	Tools for Wesnoth
+Summary(hu.UTF.8):	Eszközök a Wesnoth-hoz
 Summary(pl.UTF-8):	Narzędzia dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 
 %description tools
 Map editor and translations tools.
+
+%description tools -l hu.UTF-8
+Pályaszerkesztők és fordítási eszközök.
 
 %description tools -l pl.UTF-8
 Edytor map i narzędzia do tłumaczeń.
