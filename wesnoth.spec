@@ -11,13 +11,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.4.5
-Release:	2
+Version:	1.5.4
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	09b7b76d4a4eedf502f38df9d551d827
+# Source0-md5:	f4222d741bd0dd4c1336a96b6f1c5c2d
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -105,6 +105,7 @@ Edytor map i narzędzia do tłumaczeń.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%{__sed} -i 's,PYTHON_PREFIX"/lib,PYTHON_PREFIX"/%{_lib},g' configure.ac
 
 %build
 %{__gettextize}
@@ -114,6 +115,8 @@ Edytor map i narzędzia do tłumaczeń.
 %{__automake}
 %configure \
 	%{?with_server:--enable-server} \
+	%{?with_server:--enable-campaign-server} \
+	--enable-python-install \
 	%{?with_tools:--enable-editor} \
 	%{?with_tools:--enable-tools} \
 	--with%{!?with_fribidi:out}-fribidi \
@@ -135,7 +138,9 @@ gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
+%if %{with server}
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
+%endif
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
 
@@ -146,6 +151,10 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 
 # the same as manuals from %{_mandir}/man?
 rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
+
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+%py_postclean
 
 %find_lang %{name} --all-name
 
@@ -190,6 +199,7 @@ fi
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
+%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}-icon.png
@@ -197,6 +207,7 @@ fi
 %if %{with server}
 %files server
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/campaignd
 %attr(755,root,root) %{_bindir}/wesnothd
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
@@ -209,7 +220,6 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
-%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
@@ -217,6 +227,7 @@ fi
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
+%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
@@ -225,6 +236,7 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
+%attr(755,root,root) %{_bindir}/wesnoth_addon_manager
 %attr(755,root,root) %{_bindir}/wesnoth_editor
 %attr(755,root,root) %{_bindir}/wmlindent
 %attr(755,root,root) %{_bindir}/wmllint
@@ -247,6 +259,9 @@ fi
 %lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth_editor.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
+%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
 %{_pixmapsdir}/%{name}_editor-icon.png
+%dir %{py_sitedir}/%{name}
+%{py_sitedir}/%{name}/*.py[co]
 %endif
