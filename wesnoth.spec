@@ -177,6 +177,7 @@ fi
 %lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
+%lang(fi) %{_mandir}/fi/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
@@ -190,6 +191,7 @@ fi
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
+%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}-icon.png
@@ -204,12 +206,12 @@ fi
 %lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
+%lang(fi) %{_mandir}/fi/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
 %lang(gl) %{_mandir}/gl/man6/wesnothd.6*
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
-%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
@@ -217,6 +219,7 @@ fi
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
+%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
@@ -234,6 +237,7 @@ fi
 %lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
 %lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
 %lang(es) %{_mandir}/es/man6/wesnoth_editor.6*
+%lang(fi) %{_mandir}/fi/man6/wesnoth_editor.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth_editor.6*
 %lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
@@ -247,6 +251,7 @@ fi
 %lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth_editor.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
+%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
 %{_pixmapsdir}/%{name}_editor-icon.png
 %endif
