@@ -11,13 +11,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.5.4
-Release:	1
+Version:	1.5.6
+Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	f4222d741bd0dd4c1336a96b6f1c5c2d
+# Source0-md5:	3eefd2c0e0129677bf0da66044fe5d1d
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -122,7 +122,8 @@ Edytor map i narzędzia do tłumaczeń.
 	--with%{!?with_fribidi:out}-fribidi \
 	--docdir=%{_docdir}/%{name}-%{version} \
 	--with-icondir=%{_pixmapsdir} \
-	--with-zipios
+	--with-zipios \
+	--disable-strict-compilation
 %{__make}
 
 %install
@@ -183,23 +184,23 @@ fi
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
-%lang(da) %{_mandir}/da/man6/wesnoth.6*
+#%%lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
-%lang(fr) %{_mandir}/fr/man6/wesnoth.6*
-%lang(gl) %{_mandir}/gl/man6/wesnoth.6*
-%lang(hu) %{_mandir}/hu/man6/wesnoth.6*
-%lang(it) %{_mandir}/it/man6/wesnoth.6*
-%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
+#%%lang(fr) %{_mandir}/fr/man6/wesnoth.6*
+#%%lang(gl) %{_mandir}/gl/man6/wesnoth.6*
+#%%lang(hu) %{_mandir}/hu/man6/wesnoth.6*
+#%%lang(it) %{_mandir}/it/man6/wesnoth.6*
+#%%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
-%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
-%lang(pl) %{_mandir}/pl/man6/wesnoth.6*
-%lang(sk) %{_mandir}/sk/man6/wesnoth.6*
-%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
+#%%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
+#%%lang(pl) %{_mandir}/pl/man6/wesnoth.6*
+#%%lang(sk) %{_mandir}/sk/man6/wesnoth.6*
+#%%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
+#%%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
-%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
-%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
+#%%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
+#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}-icon.png
@@ -237,29 +238,29 @@ fi
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
 %attr(755,root,root) %{_bindir}/wesnoth_addon_manager
-%attr(755,root,root) %{_bindir}/wesnoth_editor
+#%%attr(755,root,root) %{_bindir}/wesnoth_editor
 %attr(755,root,root) %{_bindir}/wmlindent
 %attr(755,root,root) %{_bindir}/wmllint
 %attr(755,root,root) %{_bindir}/wmlscope
-%{_mandir}/man6/wesnoth_editor.6*
-%lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
-%lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
-%lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
-%lang(es) %{_mandir}/es/man6/wesnoth_editor.6*
-%lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
-%lang(gl) %{_mandir}/gl/man6/wesnoth_editor.6*
-%lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
-%lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
-%lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
-%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
-%lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
-%lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
-%lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
-%lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
-%lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
-%lang(tr) %{_mandir}/tr/man6/wesnoth_editor.6*
-%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
-%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
+#%%{_mandir}/man6/wesnoth_editor.6*
+#%%lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
+#%%lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
+#%%lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
+#%%lang(es) %{_mandir}/es/man6/wesnoth_editor.6*
+#%%lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
+#%%lang(gl) %{_mandir}/gl/man6/wesnoth_editor.6*
+#%%lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
+#%%lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
+#%%lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
+#%%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
+#%%lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
+#%%lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
+#%%lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
+#%%lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
+#%%lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
+#%%lang(tr) %{_mandir}/tr/man6/wesnoth_editor.6*
+#%%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
+#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
 %{_pixmapsdir}/%{name}_editor-icon.png
 %dir %{py_sitedir}/%{name}
