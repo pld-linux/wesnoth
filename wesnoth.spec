@@ -1,7 +1,7 @@
 # TODO
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
-# - dont know what should I do with sr@latin man pages
+# - dont know what should I do with sr@latin and racv man pages
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
@@ -11,13 +11,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.5.6
+Version:	1.5.7
 Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	3eefd2c0e0129677bf0da66044fe5d1d
+# Source0-md5:	7572e8a8e63e2d5016d1b8bde85a31e8
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -188,9 +188,9 @@ fi
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
 #%%lang(fr) %{_mandir}/fr/man6/wesnoth.6*
-#%%lang(gl) %{_mandir}/gl/man6/wesnoth.6*
+%lang(gl) %{_mandir}/gl/man6/wesnoth.6*
 #%%lang(hu) %{_mandir}/hu/man6/wesnoth.6*
-#%%lang(it) %{_mandir}/it/man6/wesnoth.6*
+%lang(it) %{_mandir}/it/man6/wesnoth.6*
 #%%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 #%%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
@@ -216,11 +216,13 @@ fi
 %lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
+%lang(fi) %{_mandir}/fi/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
 %lang(gl) %{_mandir}/gl/man6/wesnothd.6*
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
+%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
