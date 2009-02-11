@@ -11,13 +11,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.5.8
+Version:	1.5.9
 Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	394843c973757d6fd92ea0d50962ac9d
+# Source0-md5:	a42b2992db3eb37e7224c8a0703e0df0
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -192,13 +192,13 @@ fi
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
 #%%lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
-#%%lang(hu) %{_mandir}/hu/man6/wesnoth.6*
+%lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
 #%%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 #%%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 #%%lang(pl) %{_mandir}/pl/man6/wesnoth.6*
-#%%lang(sk) %{_mandir}/sk/man6/wesnoth.6*
+%lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 #%%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
 #%%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
