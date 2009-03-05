@@ -3,6 +3,7 @@
 # - use desktop file included with project (consider which one are better)
 # - dont know what should I do with sr@latin and racv man pages
 # Conditional build
+# - put python files into pysite_dir
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
 %bcond_without	fribidi	# without Bidirectional language support
@@ -11,13 +12,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.5.10
+Version:	1.5.12
 Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	2d76ee15ab35b9971290279031649643
+# Source0-md5:	5dcac766ade0806e8d0b5e5ce020a1e0
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -28,7 +29,7 @@ BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
-BuildRequires:	SDL_ttf-devel >= 2.0
+BuildRequires:	SDL_ttf-devel >= 2.0.8
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	boost-devel >= 1.33
@@ -42,6 +43,7 @@ BuildRequires:	pkg-config
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	sed >= 4.0
 BuildRequires:	zipios++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -156,9 +158,9 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 # the same as manuals from %{_mandir}/man?
 rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
 
-%py_comp $RPM_BUILD_ROOT%{py_sitedir}
-%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
-%py_postclean
+#%%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+#%%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+#%%py_postclean
 
 %find_lang %{name} --all-name
 
@@ -197,7 +199,7 @@ fi
 #%%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 #%%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
-#%%lang(pl) %{_mandir}/pl/man6/wesnoth.6*
+%lang(pl) %{_mandir}/pl/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 #%%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
 #%%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
@@ -268,6 +270,6 @@ fi
 #%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
 %{_pixmapsdir}/%{name}_editor-icon.png
-%dir %{py_sitedir}/%{name}
-%{py_sitedir}/%{name}/*.py[co]
+#%%dir %{py_sitedir}/%{name}
+#%%{py_sitedir}/%{name}/*.py[co]
 %endif
