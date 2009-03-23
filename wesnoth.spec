@@ -54,21 +54,19 @@ types of attacks. Units gain experience and advance levels, and are
 carried over from one scenario to the next campaign.
 
 %description -l hu.UTF-8
-Battle for Wesnoth (Harc Wesnothért) egy fantasy környezetben
-játszódó stratégiai játék. Harc a falvak megszerzéséért,
-különböző egységek felhasználásával, amelyeknek különböző
-előnyeik és hátrányaik vannak a különféle terepeken és a
-különböző támadási stílusok ellen. Az egységek tapasztalatot
-gyűjtenek, és fejlődnek, amelyek átvihetők a következő
-pályára.
+Battle for Wesnoth (Harc Wesnothért) egy fantasy környezetben játszódó
+stratégiai játék. Harc a falvak megszerzéséért, különböző egységek
+felhasználásával, amelyeknek különböző előnyeik és hátrányaik vannak a
+különféle terepeken és a különböző támadási stílusok ellen. Az
+egységek tapasztalatot gyűjtenek, és fejlődnek, amelyek átvihetők a
+következő pályára.
 
 %description -l pl.UTF-8
-Bitwa o Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę
-nad wsiami przy pomocy różnego rodzaju oddziałów, które mają
-przewagę lub jej brak w odmiennym ukształtowaniu terenu i przeciwko
-różnym sposobom ataku. Oddziały zdobywają doświadczenie i poziomy
-zaawansowania i są przenoszone z jednej scenerii do następnej
-kampanii.
+Bitwa o Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę nad
+wsiami przy pomocy różnego rodzaju oddziałów, które mają przewagę lub
+jej brak w odmiennym ukształtowaniu terenu i przeciwko różnym sposobom
+ataku. Oddziały zdobywają doświadczenie i poziomy zaawansowania i są
+przenoszone z jednej scenerii do następnej kampanii.
 
 %package server
 Summary:	Network server for Wesnoth
@@ -152,7 +150,9 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
 
 # unsupported(?)
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/fur_IT
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/racv
 rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 
 # the same as manuals from %{_mandir}/man?
