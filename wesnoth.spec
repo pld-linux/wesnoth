@@ -2,8 +2,8 @@
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
 # - dont know what should I do with sr@latin and racv man pages
-# Conditional build
 # - put python files into pysite_dir
+# Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
 %bcond_without	fribidi	# without Bidirectional language support
