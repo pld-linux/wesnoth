@@ -2,7 +2,6 @@
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
 # - dont know what should I do with sr@latin and racv man pages
-# - put python files into pysite_dir
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
@@ -12,12 +11,12 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.6a
-Release:	0.1
+Version:	1.6
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
-Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
+Source0:	http://www.wesnoth.org/files/%{name}-%{version}a.tar.bz2
 # Source0-md5:	3c4618eb64d1e5aeb6a00ab3956d5080
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
@@ -108,10 +107,10 @@ Pályaszerkesztők és fordítási eszközök.
 Edytor map i narzędzia do tłumaczeń.
 
 %prep
-%setup -q
+%setup -q -n %{name}-%{version}a
 %patch0 -p1
 %patch1 -p1
-%{__sed} -i 's,PYTHON_PREFIX"/lib,PYTHON_PREFIX"/%{_lib},g' configure.ac
+%{__sed} -i 's,$PYTHON_PREFIX"/lib/,"%{_libdir}/,g' configure.ac
 
 %build
 %{__gettextize}
@@ -120,6 +119,7 @@ Edytor map i narzędzia do tłumaczeń.
 %{__autoheader}
 %{__automake}
 %configure \
+	PYTHON_VERSION=%{py_ver} \
 	%{?with_server:--enable-server} \
 	%{?with_server:--enable-campaign-server} \
 	--enable-python-install \
@@ -158,9 +158,9 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 # the same as manuals from %{_mandir}/man?
 rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
 
-#%%py_comp $RPM_BUILD_ROOT%{py_sitedir}
-#%%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
-#%%py_postclean
+%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+%py_postclean
 
 %find_lang %{name} --all-name
 
@@ -271,6 +271,6 @@ fi
 #%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
 %{_pixmapsdir}/%{name}_editor-icon.png
-#%%dir %{py_sitedir}/%{name}
-#%%{py_sitedir}/%{name}/*.py[co]
+%dir %{py_sitedir}/%{name}
+%{py_sitedir}/%{name}/*.py[co]
 %endif
