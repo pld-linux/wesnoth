@@ -1,8 +1,9 @@
 # TODO
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
-# - dont know what should I do with sr@latin man pages
+# - dont know what should I do with sr@latin and racv man pages
 # Conditional build
+# - put python files into pysite_dir
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
 %bcond_without	fribidi	# without Bidirectional language support
@@ -11,13 +12,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.4.7
-Release:	1
+Version:	1.6a
+Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://www.wesnoth.org/files/%{name}-%{version}.tar.bz2
-# Source0-md5:	fdd341c3d66bf1bea2113c79db852d68
+# Source0-md5:	3c4618eb64d1e5aeb6a00ab3956d5080
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -28,7 +29,7 @@ BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
-BuildRequires:	SDL_ttf-devel >= 2.0
+BuildRequires:	SDL_ttf-devel >= 2.0.8
 BuildRequires:	autoconf >= 2.59
 BuildRequires:	automake >= 1:1.9
 BuildRequires:	boost-devel >= 1.33
@@ -37,9 +38,12 @@ BuildRequires:	gettext-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
+BuildRequires:	libvorbis-devel
+BuildRequires:	pkg-config
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	sed >= 4.0
 BuildRequires:	zipios++-devel
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -51,19 +55,21 @@ types of attacks. Units gain experience and advance levels, and are
 carried over from one scenario to the next campaign.
 
 %description -l hu.UTF-8
-Battle for Wesnoth (Harc Wesnothért) egy fantasy környezetben játszódó
-stratégiai játék. Harc a falvak megszerzéséért, különböző egységek
-felhasználásával, amelyeknek különböző előnyeik és hátrányaik vannak a
-különféle terepeken és a különböző támadási stílusok ellen. Az
-egységek tapasztalatot gyűjtenek, és fejlődnek, amelyek átvihetők a
-következő pályára.
+Battle for Wesnoth (Harc Wesnothért) egy fantasy környezetben
+játszódó stratégiai játék. Harc a falvak megszerzéséért,
+különböző egységek felhasználásával, amelyeknek különböző
+előnyeik és hátrányaik vannak a különféle terepeken és a
+különböző támadási stílusok ellen. Az egységek tapasztalatot
+gyűjtenek, és fejlődnek, amelyek átvihetők a következő
+pályára.
 
 %description -l pl.UTF-8
-Bitwa o Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę nad
-wsiami przy pomocy różnego rodzaju oddziałów, które mają przewagę lub
-jej brak w odmiennym ukształtowaniu terenu i przeciwko różnym sposobom
-ataku. Oddziały zdobywają doświadczenie i poziomy zaawansowania i są
-przenoszone z jednej scenerii do następnej kampanii.
+Bitwa o Wesnoth jest strategiczną grą fantasy. Batalia o kontrolę
+nad wsiami przy pomocy różnego rodzaju oddziałów, które mają
+przewagę lub jej brak w odmiennym ukształtowaniu terenu i przeciwko
+różnym sposobom ataku. Oddziały zdobywają doświadczenie i poziomy
+zaawansowania i są przenoszone z jednej scenerii do następnej
+kampanii.
 
 %package server
 Summary:	Network server for Wesnoth
@@ -105,6 +111,7 @@ Edytor map i narzędzia do tłumaczeń.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%{__sed} -i 's,PYTHON_PREFIX"/lib,PYTHON_PREFIX"/%{_lib},g' configure.ac
 
 %build
 %{__gettextize}
@@ -114,6 +121,8 @@ Edytor map i narzędzia do tłumaczeń.
 %{__automake}
 %configure \
 	%{?with_server:--enable-server} \
+	%{?with_server:--enable-campaign-server} \
+	--enable-python-install \
 	%{?with_tools:--enable-editor} \
 	%{?with_tools:--enable-tools} \
 	--with%{!?with_fribidi:out}-fribidi \
@@ -135,7 +144,9 @@ gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
 
 install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
 install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
+%if %{with server}
 install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
+%endif
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
 
@@ -146,6 +157,10 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 
 # the same as manuals from %{_mandir}/man?
 rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
+
+#%%py_comp $RPM_BUILD_ROOT%{py_sitedir}
+#%%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
+#%%py_postclean
 
 %find_lang %{name} --all-name
 
@@ -174,24 +189,24 @@ fi
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
-%lang(da) %{_mandir}/da/man6/wesnoth.6*
+#%%lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
 %lang(fi) %{_mandir}/fi/man6/wesnoth.6*
-%lang(fr) %{_mandir}/fr/man6/wesnoth.6*
+#%%lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
-%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
+#%%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
-%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
+#%%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
-%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
+#%%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
+#%%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
-%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
+#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}-icon.png
@@ -199,6 +214,7 @@ fi
 %if %{with server}
 %files server
 %defattr(644,root,root,755)
+%attr(755,root,root) %{_bindir}/campaignd
 %attr(755,root,root) %{_bindir}/wesnothd
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
@@ -212,6 +228,7 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
+%lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 %lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
@@ -228,30 +245,32 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
-%attr(755,root,root) %{_bindir}/wesnoth_editor
+%attr(755,root,root) %{_bindir}/wesnoth_addon_manager
+#%%attr(755,root,root) %{_bindir}/wesnoth_editor
 %attr(755,root,root) %{_bindir}/wmlindent
 %attr(755,root,root) %{_bindir}/wmllint
 %attr(755,root,root) %{_bindir}/wmlscope
-%{_mandir}/man6/wesnoth_editor.6*
-%lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
-%lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
-%lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
-%lang(es) %{_mandir}/es/man6/wesnoth_editor.6*
-%lang(fi) %{_mandir}/fi/man6/wesnoth_editor.6*
-%lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
-%lang(gl) %{_mandir}/gl/man6/wesnoth_editor.6*
-%lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
-%lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
-%lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
-%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
-%lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
-%lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
-%lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
-%lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
-%lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
-%lang(tr) %{_mandir}/tr/man6/wesnoth_editor.6*
-%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
-%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
+#%%{_mandir}/man6/wesnoth_editor.6*
+#%%lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
+#%%lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
+#%%lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
+#%%lang(es) %{_mandir}/es/man6/wesnoth_editor.6*
+#%%lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
+#%%lang(gl) %{_mandir}/gl/man6/wesnoth_editor.6*
+#%%lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
+#%%lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
+#%%lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
+#%%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
+#%%lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
+#%%lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
+#%%lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
+#%%lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
+#%%lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
+#%%lang(tr) %{_mandir}/tr/man6/wesnoth_editor.6*
+#%%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
+#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
 %{_pixmapsdir}/%{name}_editor-icon.png
+#%%dir %{py_sitedir}/%{name}
+#%%{py_sitedir}/%{name}/*.py[co]
 %endif
