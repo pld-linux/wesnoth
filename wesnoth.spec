@@ -11,13 +11,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.6
+Version:	1.6.1
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
-Source0:	http://www.wesnoth.org/files/%{name}-%{version}a.tar.bz2
-# Source0-md5:	3c4618eb64d1e5aeb6a00ab3956d5080
+Source0:	http://dl.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
+# Source0-md5:	6777ec9bfb44b1553a4b7dd2d12c0713
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -105,7 +105,7 @@ Pályaszerkesztők és fordítási eszközök.
 Edytor map i narzędzia do tłumaczeń.
 
 %prep
-%setup -q -n %{name}-%{version}a
+%setup -q
 %patch0 -p1
 %patch1 -p1
 %{__sed} -i 's,$PYTHON_PREFIX"/lib/,"%{_libdir}/,g' configure.ac
@@ -201,9 +201,10 @@ fi
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 #%%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
+%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
-#%%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-#%%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
+%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
+%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 #%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
@@ -219,24 +220,24 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
-%lang(da) %{_mandir}/da/man6/wesnothd.6*
+#%%lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
 %lang(fi) %{_mandir}/fi/man6/wesnothd.6*
-%lang(fr) %{_mandir}/fr/man6/wesnothd.6*
-%lang(gl) %{_mandir}/gl/man6/wesnothd.6*
+#%%lang(fr) %{_mandir}/fr/man6/wesnothd.6*
+#%%lang(gl) %{_mandir}/gl/man6/wesnothd.6*
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
-%lang(ja) %{_mandir}/ja/man6/wesnothd.6*
+#%lang(ja) %{_mandir}/ja/man6/wesnothd.6*
 %lang(lt) %{_mandir}/lt/man6/wesnothd.6*
-%lang(nl) %{_mandir}/nl/man6/wesnothd.6*
+#%%lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
-%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
+#%%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sr) %{_mandir}/sr/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
-%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
+#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
