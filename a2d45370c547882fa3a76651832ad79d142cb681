@@ -1,0 +1,5 @@
+- up to 1.7.0
+- search for lua51 instead od lua5.1 (sed)
+- BR: lua51-devel
+- changes in files (man pages)
+- -Makefile.patch is now outdated
