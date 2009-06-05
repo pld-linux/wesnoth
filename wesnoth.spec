@@ -11,18 +11,17 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.6.2
-Release:	1
+Version:	1.7.0
+Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://dl.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	d7de3cddcd832ebaaf8d00990ad14d01
+# Source0-md5:	ed4ce3cc0f278d726264c4121de969cf
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
-Patch0:		%{name}-Makefile.patch
-Patch1:		%{name}-locale_dir.patch
+Patch0:		%{name}-locale_dir.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
@@ -38,6 +37,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	libvorbis-devel
+BuildRequires:	lua51-devel
 BuildRequires:	pkg-config
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
@@ -107,8 +107,8 @@ Edytor map i narzędzia do tłumaczeń.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
 %{__sed} -i 's,$PYTHON_PREFIX"/lib/,"%{_libdir}/,g' configure.ac
+%{__sed} -i 's,lua5.1,lua51,' configure.ac
 
 %build
 %{__gettextize}
@@ -204,10 +204,10 @@ fi
 #%%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
+#%%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
-#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
+%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/%{name}.desktop
 %{_pixmapsdir}/%{name}-icon.png
@@ -234,10 +234,10 @@ fi
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 #%%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sr) %{_mandir}/sr/man6/wesnothd.6*
-%lang(sv) %{_mandir}/sv/man6/wesnothd.6*
+#%%lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
-#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
+%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
