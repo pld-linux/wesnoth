@@ -70,6 +70,7 @@ przenoszone z jednej scenerii do następnej kampanii.
 
 %package server
 Summary:	Network server for Wesnoth
+Summary(hu.UTF-8):	Hálózati szerver Wesnoth-hoz
 Summary(pl.UTF-8):	Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires(post,preun):	/sbin/chkconfig
