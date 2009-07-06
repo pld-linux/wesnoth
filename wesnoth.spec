@@ -2,6 +2,7 @@
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
 # - dont know what should I do with sr@latin and racv man pages
+# - unpackaged language files
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
@@ -11,13 +12,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.6.2
+Version:	1.6.3
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://dl.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	d7de3cddcd832ebaaf8d00990ad14d01
+# Source0-md5:	2ffabfbbcbfd2e6c0ab5dac1d314d9e1
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
