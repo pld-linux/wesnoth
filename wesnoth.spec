@@ -1,7 +1,8 @@
 # TODO
 # - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
-# - dont know what should I do with sr@latin and racv man pages
+# - dont know what should I do with sr@latin man pages
+# - unpackaged language files
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
@@ -11,17 +12,18 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.7.0
+Version:	1.7.1
 Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://dl.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	ed4ce3cc0f278d726264c4121de969cf
+# Source0-md5:	6aa0f07b0c72219b8177bdb5bde440f1
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
 Patch0:		%{name}-locale_dir.patch
+Patch1:		%{name}-werror.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
@@ -107,6 +109,7 @@ Edytor map i narzędzia do tłumaczeń.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 %{__sed} -i 's,$PYTHON_PREFIX"/lib/,"%{_libdir}/,g' configure.ac
 %{__sed} -i 's,lua5.1,lua51,' configure.ac
 
