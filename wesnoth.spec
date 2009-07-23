@@ -1,7 +1,5 @@
 # TODO
-# - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
-# - dont know what should I do with sr@latin man pages
 # - unpackaged language files
 # Conditional build
 %bcond_without	server	# without server
@@ -208,6 +206,7 @@ fi
 #%%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth.6*
+%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
@@ -238,6 +237,7 @@ fi
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 #%%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sr) %{_mandir}/sr/man6/wesnothd.6*
+%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
