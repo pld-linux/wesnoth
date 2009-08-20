@@ -1,7 +1,5 @@
 # TODO
-# - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
-# - dont know what should I do with sr@latin man pages
 # - unpackaged language files
 # Conditional build
 %bcond_without	server	# without server
@@ -12,18 +10,19 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.7.3
-Release:	0.1
+Version:	1.6.4
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://dl.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	d641a65106ffbc1da09f47538bcce9e6
+# Source0-md5:	c8bc4c5b2be28e29563dfe3f89eafd51
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
-Patch0:		%{name}-locale_dir.patch
-Patch1:		%{name}-werror.patch
+Patch0:		%{name}-Makefile.patch
+Patch1:		%{name}-locale_dir.patch
+Patch2:		%{name}-werror.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
@@ -39,13 +38,14 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	libvorbis-devel
-BuildRequires:	lua51-devel
 BuildRequires:	pkg-config
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 BuildRequires:	zipios++-devel
+# sr@Latn vs. sr@latin
+Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -72,6 +72,7 @@ przenoszone z jednej scenerii do następnej kampanii.
 
 %package server
 Summary:	Network server for Wesnoth
+Summary(hu.UTF-8):	Hálózati szerver Wesnoth-hoz
 Summary(pl.UTF-8):	Sieciowy serwer dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires(post,preun):	/sbin/chkconfig
@@ -80,6 +81,8 @@ Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires:	rc-scripts >= 0.4.0.17
+# sr@Latn vs. sr@latin
+Conflicts:	glibc-misc < 6:2.7
 
 %description server
 Server for playing networked games of Wesnoth.
@@ -110,8 +113,8 @@ Edytor map i narzędzia do tłumaczeń.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 %{__sed} -i 's,$PYTHON_PREFIX"/lib/,"%{_libdir}/,g' configure.ac
-%{__sed} -i 's,lua5.1,lua51,' configure.ac
 
 %build
 %{__gettextize}
@@ -195,7 +198,6 @@ fi
 #%%lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
-%lang(et) %{_mandir}/et/man6/wesnoth.6*
 %lang(fi) %{_mandir}/fi/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
@@ -208,7 +210,8 @@ fi
 #%%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-#%%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
+%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
+%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
@@ -227,7 +230,6 @@ fi
 #%%lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
-%lang(et) %{_mandir}/et/man6/wesnothd.6*
 %lang(fi) %{_mandir}/fi/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
 #%%lang(gl) %{_mandir}/gl/man6/wesnothd.6*
@@ -239,10 +241,11 @@ fi
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 #%%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sr) %{_mandir}/sr/man6/wesnothd.6*
-#%%lang(sv) %{_mandir}/sv/man6/wesnothd.6*
+%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
+%lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
-#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
+%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
