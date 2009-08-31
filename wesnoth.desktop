@@ -1,5 +1,6 @@
 [Desktop Entry]
-Name=Bitwa o Wesnoth
+Name=Battle for Wesnoth
+Name[pl]=Bitwa o Wesnoth
 Comment=Strategy game
 Comment[pl]=Gra strategiczna
 Exec=wesnoth
