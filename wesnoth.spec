@@ -1,5 +1,4 @@
 # TODO
-# - use desktop file included with project (consider which one are better)
 # - unpackaged language files
 # Conditional build
 %bcond_without	server	# without server
@@ -10,19 +9,18 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.6.4
-Release:	2
+Version:	1.6.5
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://dl.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	c8bc4c5b2be28e29563dfe3f89eafd51
-Source1:	%{name}.desktop
-Source2:	%{name}_editor.desktop
-Source3:	%{name}d.init
+# Source0-md5:	493826bbd9ba355930765a7e8fe3749a
+Source1:	%{name}d.init
 Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-locale_dir.patch
 Patch2:		%{name}-werror.patch
+Patch3:		%{name}-desktop.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
@@ -114,6 +112,7 @@ Edytor map i narzędzia do tłumaczeń.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 %{__sed} -i 's,$PYTHON_PREFIX"/lib/,"%{_libdir}/,g' configure.ac
 
 %build
@@ -146,10 +145,8 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/
 install changelog README  $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
 
-install %{SOURCE1} $RPM_BUILD_ROOT%{_desktopdir}
-install %{SOURCE2} $RPM_BUILD_ROOT%{_desktopdir}
 %if %{with server}
-install %{SOURCE3} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
+install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 %endif
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
@@ -198,6 +195,7 @@ fi
 #%%lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
+%lang(et) %{_mandir}/et/man6/wesnoth.6*
 %lang(fi) %{_mandir}/fi/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
@@ -216,8 +214,8 @@ fi
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
-%{_desktopdir}/%{name}.desktop
-%{_pixmapsdir}/%{name}-icon.png
+%{_desktopdir}/*.desktop
+%{_pixmapsdir}/*-icon.png
 
 %if %{with server}
 %files server
@@ -230,6 +228,7 @@ fi
 #%%lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
+%lang(et) %{_mandir}/et/man6/wesnothd.6*
 %lang(fi) %{_mandir}/fi/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
 #%%lang(gl) %{_mandir}/gl/man6/wesnothd.6*
@@ -255,31 +254,9 @@ fi
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
 %attr(755,root,root) %{_bindir}/wesnoth_addon_manager
-#%%attr(755,root,root) %{_bindir}/wesnoth_editor
 %attr(755,root,root) %{_bindir}/wmlindent
 %attr(755,root,root) %{_bindir}/wmllint
 %attr(755,root,root) %{_bindir}/wmlscope
-#%%{_mandir}/man6/wesnoth_editor.6*
-#%%lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
-#%%lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
-#%%lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
-#%%lang(es) %{_mandir}/es/man6/wesnoth_editor.6*
-#%%lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
-#%%lang(gl) %{_mandir}/gl/man6/wesnoth_editor.6*
-#%%lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
-#%%lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
-#%%lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
-#%%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
-#%%lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
-#%%lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
-#%%lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
-#%%lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
-#%%lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
-#%%lang(tr) %{_mandir}/tr/man6/wesnoth_editor.6*
-#%%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
-#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
-%{_desktopdir}/%{name}_editor.desktop
-%{_pixmapsdir}/%{name}_editor-icon.png
 %dir %{py_sitedir}/%{name}
 %{py_sitedir}/%{name}/*.py[co]
 %endif
