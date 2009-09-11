@@ -1,0 +1,75 @@
+--- wesnoth-1.6.5/icons/wesnoth.desktop~	2009-05-11 09:35:13.000000000 +0200
++++ wesnoth-1.6.5/icons/wesnoth.desktop	2009-09-11 15:03:45.000000000 +0200
+@@ -1,5 +1,4 @@
+ [Desktop Entry]
+-Version=1.0
+ Type=Application
+ Name=Battle for Wesnoth
+ Name[af]=Die Stryd vir Wesnoth
+@@ -13,6 +12,7 @@
+ Name[he]=הקרב על ווסנות'
+ Name[hu]=Harc Wesnothért
+ Name[lt]=Mūšis dėl Wesnoth
++Name[pl]=Bitwa o Wesnoth
+ Name[ru]=Битва за Веснот
+ Name[sk]=Bitka o Wesnoth
+ Name[sr]=Бој за Веснот
+@@ -30,6 +30,7 @@
+ GenericName[he]=משחק אסטרטגיה
+ GenericName[hu]=Stratégia
+ GenericName[lt]=Strateginis žaidimas
++GenericName[pl]=Gra Strategiczna
+ GenericName[ru]=Стратегическая игра
+ GenericName[sk]=Strategická hra
+ GenericName[sr]=Стратешка игра
+@@ -47,6 +48,7 @@
+ Comment[he]=משחק אסטרטגיה ופנטסיה מבוסס מהלכים
+ Comment[hu]=Fantasy stílusú, körökre osztott, stratégiai játék
+ Comment[lt]=Fantastinis ėjimais pagrįstas strateginis žaidimas
++Comment[pl]=Turowa strategiczna gra fantasy 
+ Comment[ru]=Фантастическая пошаговая стратегия
+ Comment[sk]=Ťahová strategická hra z prostredia fantasy
+ Comment[sr]=Фантазијска стратешка игра на потезе
+@@ -55,4 +57,5 @@
+ Icon=wesnoth-icon
+ Exec=wesnoth
+ Categories=Game;StrategyGame;
++# vi: encoding=utf-8
+ 
+--- wesnoth-1.6.5/icons/wesnoth_editor.desktop~	2009-05-11 09:35:13.000000000 +0200
++++ wesnoth-1.6.5/icons/wesnoth_editor.desktop	2009-09-11 15:08:13.000000000 +0200
+@@ -1,5 +1,4 @@
+ [Desktop Entry]
+-Version=1.0
+ Type=Application
+ Name=Battle for Wesnoth Map Editor
+ Name[cs]=Editor map Bitvy o Wesnoth
+@@ -8,6 +7,7 @@
+ Name[fr]=Éditeur de cartes Wesnoth
+ Name[hu]=Harc Wesnothért pályaszerkesztő
+ Name[lt]=Mūšio dėl Wesnoth žemėlapių redaktorius
++Name[pl]=Bitwa o Wesnoth (Edytor map)
+ Name[sr]=Уређивач мапа Боја за Веснот
+ Name[sr@latin]=Uređivač mapa Boja za Vesnot
+ Name[tr]=Wesnoth Savaşı Harita Düzenleyici
+@@ -18,6 +18,7 @@
+ GenericName[fr]=Éditeur de cartes
+ GenericName[hu]=Pályaszerkesztő
+ GenericName[lt]=Žemėlapių redaktorius
++GenericName[pl]=Edytor map
+ GenericName[sr]=Уређивач мапа
+ GenericName[sr@latin]=Uređivač mapa
+ GenericName[tr]=Harita Düzenleyici
+@@ -28,10 +29,12 @@
+ Comment[fr]=Un éditeur de cartes pour La Bataille pour Wesnoth
+ Comment[hu]=A Harc Wesnothért játék pályaszerkesztője
+ Comment[lt]=Žemėlapių redaktorius Mūšio dėl Wesnoth žemėlapiams
++Comment[pl]=Edytor map do gry strategicznej Bitwa o Wesnoth
+ Comment[sr]=Уређивач за мапе намењене Боју за Веснот
+ Comment[sr@latin]=Uređivač za mape namenjene Boju za Vesnot
+ Comment[tr]=Wesnoth savaşı haritaları için harita düzenleyici
+ Icon=wesnoth_editor-icon
+ Exec=wesnoth -e
+ Categories=Game;StrategyGame;
++# vi: encoding=utf-8
+ 
