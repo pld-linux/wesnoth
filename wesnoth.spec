@@ -1,5 +1,6 @@
 # TODO
 # - unpackaged language files
+# - error: wesnoth-1.6.4-2.i686: req /usr/share/man/sr@latin/man6 not found
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
