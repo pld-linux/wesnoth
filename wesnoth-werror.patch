@@ -1,11 +1,11 @@
---- wesnoth-1.7.1/configure.ac~	2009-07-08 10:56:03.000000000 +0200
-+++ wesnoth-1.7.1/configure.ac	2009-07-08 10:59:20.000000000 +0200
+--- wesnoth-1.7.6/configure.ac~	2009-10-02 10:48:32.000000000 +0200
++++ wesnoth-1.7.6/configure.ac	2009-10-02 10:49:56.000000000 +0200
 @@ -107,7 +107,7 @@
  then
  #   Strict compilation for C files is disabled until somebody wants to clean them.
- #	CFLAGS="$CFLAGS -Werror -Wno-unused -Wno-sign-compare"
--	CXXFLAGS="$CXXFLAGS -Werror -Wno-unused-parameter"
-+	CXXFLAGS="$CXXFLAGS -Wno-unused-parameter"
+ #	CFLAGS="-Werror -Wno-unused -Wno-sign-compare $CFLAGS"
+-	CXXFLAGS="-Werror -Wno-unused-parameter $CXXFLAGS"
++	CXXFLAGS="-Wno-unused-parameter $CXXFLAGS"
  fi
  
  # Make tests default in svn version
