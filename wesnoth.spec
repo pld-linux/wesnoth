@@ -1,6 +1,5 @@
 # TODO
 # - unpackaged language files
-# - error: wesnoth-1.6.4-2.i686: req /usr/share/man/sr@latin/man6 not found
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
@@ -158,6 +157,8 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/fur_IT
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/racv
 rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
+rm -rf $RPM_BUILD_ROOT%{_mandir}/sr@latin
+rm -rf $RPM_BUILD_ROOT%{_mandir}/et
 
 # the same as manuals from %{_mandir}/man?
 rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
@@ -196,7 +197,7 @@ fi
 #%%lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
-%lang(et) %{_mandir}/et/man6/wesnoth.6*
+#%%lang(et) %{_mandir}/et/man6/wesnoth.6*
 %lang(fi) %{_mandir}/fi/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
@@ -209,7 +210,7 @@ fi
 #%%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
+#%%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
@@ -229,7 +230,7 @@ fi
 #%%lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
-%lang(et) %{_mandir}/et/man6/wesnothd.6*
+# %lang(et) %{_mandir}/et/man6/wesnothd.6*
 %lang(fi) %{_mandir}/fi/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
 #%%lang(gl) %{_mandir}/gl/man6/wesnothd.6*
@@ -241,7 +242,7 @@ fi
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 #%%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sr) %{_mandir}/sr/man6/wesnothd.6*
-%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
+#%%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
