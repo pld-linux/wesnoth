@@ -157,8 +157,6 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/fur_IT
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/racv
 rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
-rm -rf $RPM_BUILD_ROOT%{_mandir}/sr@latin
-rm -rf $RPM_BUILD_ROOT%{_mandir}/et
 
 # the same as manuals from %{_mandir}/man?
 rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
