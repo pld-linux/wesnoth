@@ -36,6 +36,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libtool >= 2:1.5
 BuildRequires:	libvorbis-devel
+BuildRequires:	p7zip
 BuildRequires:	pkg-config
 BuildRequires:	python-devel
 BuildRequires:	rpm-pythonprov
@@ -195,7 +196,7 @@ fi
 #%%lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
-#%%lang(et) %{_mandir}/et/man6/wesnoth.6*
+%lang(et) %{_mandir}/et/man6/wesnoth.6*
 %lang(fi) %{_mandir}/fi/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
@@ -208,7 +209,7 @@ fi
 #%%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-#%%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
+%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
 %lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
@@ -228,7 +229,7 @@ fi
 #%%lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
-# %lang(et) %{_mandir}/et/man6/wesnothd.6*
+%lang(et) %{_mandir}/et/man6/wesnothd.6*
 %lang(fi) %{_mandir}/fi/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
 #%%lang(gl) %{_mandir}/gl/man6/wesnothd.6*
@@ -240,7 +241,7 @@ fi
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 #%%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sr) %{_mandir}/sr/man6/wesnothd.6*
-#%%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
+%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
 %lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
