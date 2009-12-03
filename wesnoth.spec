@@ -1,5 +1,4 @@
 # TODO
-# - rename language files sr@latin to sr@Latn and include them
 # - use desktop file included with project (consider which one are better)
 # - dont know what should I do with sr@latin man pages
 # - unpackaged language files
@@ -12,13 +11,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.7.8
+Version:	1.7.9
 Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
-Source0:	http://dl.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	e703d6cef63a54d172f4c548e0fc376f
+Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
+# Source0-md5:	d00a669021437c5ed4ea825b6d41598d
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
@@ -156,6 +155,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/fur_IT
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/racv
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/en@shaw
 rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 
 # the same as manuals from %{_mandir}/man?
@@ -205,9 +205,11 @@ fi
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 #%%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
+%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
 #%%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth.6*
+%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
 #%%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
@@ -237,8 +239,10 @@ fi
 %lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 #%%lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
+%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
 #%%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sr) %{_mandir}/sr/man6/wesnothd.6*
+%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
 #%%lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
