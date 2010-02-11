@@ -10,7 +10,7 @@ Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	1.6.5
-Release:	2
+Release:	3
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
@@ -21,6 +21,7 @@ Patch0:		%{name}-Makefile.patch
 Patch1:		%{name}-locale_dir.patch
 Patch2:		%{name}-werror.patch
 Patch3:		%{name}-desktop.patch
+Patch4:		%{name}-libpng.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
@@ -114,6 +115,7 @@ Edytor map i narzędzia do tłumaczeń.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 %{__sed} -i 's,$PYTHON_PREFIX"/lib/,"%{_libdir}/,g' configure.ac
 
 %build
