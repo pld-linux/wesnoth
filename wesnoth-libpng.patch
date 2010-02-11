@@ -1,0 +1,14 @@
+diff -urN wesnoth-1.6.5/src/tools/exploder_utils.cpp wesnoth-1.6.5.new/src/tools/exploder_utils.cpp
+--- wesnoth-1.6.5/src/tools/exploder_utils.cpp	2009-01-01 11:27:41.000000000 +0100
++++ wesnoth-1.6.5.new/src/tools/exploder_utils.cpp	2010-02-11 13:21:55.718521128 +0100
+@@ -174,8 +174,8 @@
+ 	//TODO: review whether providing NULL error handlers is something
+ 	//sensible
+ 	png_struct* png_ptr = png_create_write_struct
+-		(PNG_LIBPNG_VER_STRING, (png_voidp)png_voidp_NULL,
+-		 png_error_ptr_NULL, png_error_ptr_NULL);
++		(PNG_LIBPNG_VER_STRING, NULL,
++		 NULL, NULL);
+ 	if(!png_ptr)
+ 		throw exploder_failure("Unable to initialize the png write structure");
+ 
