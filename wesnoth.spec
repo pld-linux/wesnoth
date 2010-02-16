@@ -155,7 +155,6 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
 
 # unsupported(?)
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/fur_IT
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/racv
 rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
