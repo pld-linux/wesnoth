@@ -151,7 +151,8 @@ gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 %endif
 
-mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{nb_NO,nb}
+mv -f $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
+mv -f $RPM_BUILD_ROOT%{_datadir}/locale/fur{_IT,}
 
 # unsupported(?)
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
