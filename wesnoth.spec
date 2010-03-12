@@ -1,8 +1,7 @@
 # TODO
 # - use desktop file included with project (consider which one are better)
-# - dont know what should I do with sr@latin man pages
 # - unpackaged language files
-# - fix linking (now compiler is trying to link using static libraries, why?)
+# - fix lacales (seems broken)
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
@@ -12,38 +11,33 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.7.13
+Version:	1.7.14
 Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	b1e452e8138e3c573e92eb75f8a2d31a
+# Source0-md5:	a3e4e02b8066dfe77282bd379fc587e5
 Source1:	%{name}.desktop
 Source2:	%{name}_editor.desktop
 Source3:	%{name}d.init
-Patch0:		%{name}-locale_dir.patch
-Patch1:		%{name}-werror.patch
-Patch2:		%{name}-libpng.patch
+Patch0:		%{name}-libpng.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
 BuildRequires:	SDL_ttf-devel >= 2.0.8
-BuildRequires:	autoconf >= 2.59
-BuildRequires:	automake >= 1:1.9
+BuildRequires:	asciidoc
 BuildRequires:	boost-devel >= 1.33
+BuildRequires:	cmake >= 2.4
 %{?with_fribidi:BuildRequires:	fribidi-devel}
 BuildRequires:	gettext-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	libtool >= 2:1.5
 BuildRequires:	libvorbis-devel
 BuildRequires:	lua51-devel
 BuildRequires:	pkg-config
-BuildRequires:	python-devel
-BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 BuildRequires:	zipios++-devel
@@ -110,39 +104,36 @@ Edytor map i narzędzia do tłumaczeń.
 %prep
 %setup -q
 %patch0 -p1
-%patch1 -p1
-%patch2 -p1
-%{__sed} -i 's,$PYTHON_PREFIX"/lib/,"%{_libdir}/,g' configure.ac
-%{__sed} -i 's,lua5.1,lua51,' configure.ac
 
-# AC_PROG_RANLIB is obsolete by LT_INIT
-%{__sed} -i 's,AC_PROG_RANLIB,LT_INIT,' configure.ac
+# don't install locales in %{_datadir}/%{name}
+%{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
 
 %build
-%{__gettextize}
-%{__libtoolize}
-%{__aclocal} -I m4
-%{__autoconf}
-%{__autoheader}
-%{__automake}
-%configure \
-	PYTHON_VERSION=%{py_ver} \
-	%{?with_server:--enable-server} \
-	%{?with_server:--enable-campaign-server} \
-	--enable-python-install \
-	%{?with_tools:--enable-editor} \
-	%{?with_tools:--enable-tools} \
-	--with%{!?with_fribidi:out}-fribidi \
-	--docdir=%{_docdir}/%{name}-%{version} \
-	--with-icondir=%{_pixmapsdir} \
-	--with-zipios
+install -d build
+cd build
+%cmake .. \
+	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
+	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+	-DENABLE_STRICT_COMPILATION="off" \
+	-DBINDIR="%{_bindir}" \
+	-DMANDIR="%{_mandir}" \
+	-DLOCALEDIR="%{_datadir}/locale" \
+	%{!?with_server:-DENABLE_SERVER="off"} \
+	%{?with_server:-DENABLE_CAMPAIGN_SERVER="on"} \
+	%{!?with_tools:-DENABLE_EDITOR="off"} \
+	%{?with_tools:-DENABLE_TOOLS="on"} \
+	%{!?with_fribidi:-DENABLE_FRIBIDI="off"} \
+%if "%{_lib}" == "lib64"
+	-DLIB_SUFFIX=64
+%endif
+
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/rc.d/init.d,%{_docdir}/%{name}-%{version}}
 
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 # install additional docs
@@ -167,10 +158,6 @@ rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 
 # the same as manuals from %{_mandir}/man?
 rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
-
-%py_comp $RPM_BUILD_ROOT%{py_sitedir}
-%py_ocomp $RPM_BUILD_ROOT%{py_sitedir}
-%py_postclean
 
 %find_lang %{name} --all-name
 
@@ -199,7 +186,6 @@ fi
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
-#%%lang(da) %{_mandir}/da/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
 %lang(et) %{_mandir}/et/man6/wesnoth.6*
@@ -208,22 +194,18 @@ fi
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
-#%%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
-#%%lang(nl) %{_mandir}/nl/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
-#%%lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth.6*
 %lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
-#%%lang(sv) %{_mandir}/sv/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
-%{_desktopdir}/%{name}.desktop
-%{_pixmapsdir}/%{name}-icon.png
+%{_desktopdir}/*.desktop
+%{_pixmapsdir}/*-icon.png
 
 %if %{with server}
 %files server
@@ -233,27 +215,20 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %{_mandir}/man6/wesnothd.6*
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
-#%%lang(da) %{_mandir}/da/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
 %lang(et) %{_mandir}/et/man6/wesnothd.6*
 %lang(fi) %{_mandir}/fi/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
-#%%lang(gl) %{_mandir}/gl/man6/wesnothd.6*
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
-#%lang(ja) %{_mandir}/ja/man6/wesnothd.6*
 %lang(lt) %{_mandir}/lt/man6/wesnothd.6*
-#%%lang(nl) %{_mandir}/nl/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
-#%%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sr) %{_mandir}/sr/man6/wesnothd.6*
 %lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
-#%%lang(sv) %{_mandir}/sv/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
-#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
@@ -262,32 +237,6 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
-%attr(755,root,root) %{_bindir}/wesnoth_addon_manager
-#%%attr(755,root,root) %{_bindir}/wesnoth_editor
-%attr(755,root,root) %{_bindir}/wmlindent
-%attr(755,root,root) %{_bindir}/wmllint
-%attr(755,root,root) %{_bindir}/wmlscope
-#%%{_mandir}/man6/wesnoth_editor.6*
-#%%lang(cs) %{_mandir}/cs/man6/wesnoth_editor.6*
-#%%lang(da) %{_mandir}/da/man6/wesnoth_editor.6*
-#%%lang(de) %{_mandir}/de/man6/wesnoth_editor.6*
-#%%lang(es) %{_mandir}/es/man6/wesnoth_editor.6*
-#%%lang(fr) %{_mandir}/fr/man6/wesnoth_editor.6*
-#%%lang(gl) %{_mandir}/gl/man6/wesnoth_editor.6*
-#%%lang(hu) %{_mandir}/hu/man6/wesnoth_editor.6*
-#%%lang(it) %{_mandir}/it/man6/wesnoth_editor.6*
-#%%lang(ja) %{_mandir}/ja/man6/wesnoth_editor.6*
-#%%lang(lt) %{_mandir}/lt/man6/wesnoth_editor.6*
-#%%lang(nl) %{_mandir}/nl/man6/wesnoth_editor.6*
-#%%lang(pl) %{_mandir}/pl/man6/wesnoth_editor.6*
-#%%lang(sk) %{_mandir}/sk/man6/wesnoth_editor.6*
-#%%lang(sr) %{_mandir}/sr/man6/wesnoth_editor.6*
-#%%lang(sv) %{_mandir}/sv/man6/wesnoth_editor.6*
-#%%lang(tr) %{_mandir}/tr/man6/wesnoth_editor.6*
-#%%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth_editor.6*
-#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth_editor.6*
 %{_desktopdir}/%{name}_editor.desktop
 %{_pixmapsdir}/%{name}_editor-icon.png
-%dir %{py_sitedir}/%{name}
-%{py_sitedir}/%{name}/*.py[co]
 %endif
