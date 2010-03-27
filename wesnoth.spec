@@ -37,7 +37,7 @@ BuildRequires:	libstdc++-devel
 BuildRequires:	libvorbis-devel
 BuildRequires:	lua51-devel
 BuildRequires:	pango-devel
-BuildRequires:	pkg-config
+BuildRequires:	pkgconfig
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
