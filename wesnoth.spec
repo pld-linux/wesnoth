@@ -1,7 +1,5 @@
 # TODO
-# - use desktop file included with project (consider which one are better)
 # - unpackaged language files
-# - fix lacales (seems broken)
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
@@ -12,7 +10,7 @@ Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	1.8
-Release:	0.1
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
@@ -39,6 +37,7 @@ BuildRequires:	libvorbis-devel
 BuildRequires:	lua51-devel
 BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
+BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
@@ -164,6 +163,7 @@ rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/racv
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/en@shaw
 rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavian
+rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavianlatin
 rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 
 # the same as manuals from %{_mandir}/man?
