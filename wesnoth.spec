@@ -114,6 +114,9 @@ Edytor map i narzędzia do tłumaczeń.
 # don't install locales in %{_datadir}/%{name}
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
 
+# link using libpng instead of libpng12
+%{__sed} -i 's,png12,png,' src/CMakeLists.txt
+
 %build
 install -d build
 cd build
