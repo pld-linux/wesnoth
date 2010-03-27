@@ -21,6 +21,7 @@ Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
 Source1:	%{name}d.init
 Patch0:		%{name}-libpng.patch
 Patch1:		%{name}-desktop.patch
+Patch2:		%{name}-locale_dir.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
@@ -110,6 +111,7 @@ Edytor map i narzędzia do tłumaczeń.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 # don't install locales in %{_datadir}/%{name}
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
