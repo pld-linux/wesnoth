@@ -29,6 +29,7 @@ BuildRequires:	SDL_ttf-devel >= 2.0.8
 BuildRequires:	asciidoc
 BuildRequires:	boost-devel >= 1.33
 BuildRequires:	cmake >= 2.4
+BuildRequires:	dbus-devel
 %{?with_fribidi:BuildRequires:	fribidi-devel}
 BuildRequires:	gettext-devel
 BuildRequires:	libpng-devel
