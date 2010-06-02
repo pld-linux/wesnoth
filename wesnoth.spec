@@ -9,13 +9,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.8.1
-Release:	1
+Version:	1.8.2
+Release:	0.9
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	3d008b0eac291c761a1d27d05651f25f
+# Source0-md5:	5dd150057da9f5048826f16452ab0346
 Source1:	%{name}d.init
 Patch0:		%{name}-libpng.patch
 Patch1:		%{name}-desktop.patch
