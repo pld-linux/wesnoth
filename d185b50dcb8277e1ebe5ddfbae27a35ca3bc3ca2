@@ -1,0 +1,8 @@
+- updated to 1.7.14
+- switch to cmake build system (autotools are going to be deprecated)
+	- proper BRs
+	- some patches are no longer needed
+	- cmake styled build options
+- no python stuff build supported
+- files clean up (some merges from HEAD)
+- TODO: fix languages
