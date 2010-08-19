@@ -9,17 +9,16 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.8.4
-Release:	0.9
+Version:	1.9.0
+Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	2dce83f835ecce1d505ea60e46b7356f
+# Source0-md5:	c4e7ba80c6212cb58c3ff96d10f417ae
 Source1:	%{name}d.init
-Patch0:		%{name}-libpng.patch
-Patch1:		%{name}-desktop.patch
-Patch2:		%{name}-locale_dir.patch
+Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-locale_dir.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.7
 BuildRequires:	SDL_image-devel >= 1.2
@@ -111,7 +110,6 @@ Edytor map i narzędzia do tłumaczeń.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 # don't install locales in %{_datadir}/%{name}
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
