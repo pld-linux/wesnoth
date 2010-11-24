@@ -42,6 +42,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.268
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
+Requires:	SDL >= 1.2.14-4
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
