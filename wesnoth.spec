@@ -9,13 +9,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.9.2
+Version:	1.9.3
 Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	07227351b97e0674b12a48b3cb36ec61
+# Source0-md5:	dee499b683b8370f3e419c7c7a5a3f9b
 Source1:	%{name}d.init
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-locale_dir.patch
@@ -114,15 +114,10 @@ Edytor map i narzędzia do tłumaczeń.
 # don't install locales in %{_datadir}/%{name}
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
 
-# link using libpng instead of libpng12
-%{__sed} -i 's,png12,png,' src/CMakeLists.txt
-
 %build
 install -d build
 cd build
 %cmake .. \
-	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
 	-DENABLE_STRICT_COMPILATION="off" \
 	-DBINDIR="%{_bindir}" \
 	-DMANDIR="%{_mandir}" \
@@ -131,10 +126,7 @@ cd build
 	%{?with_server:-DENABLE_CAMPAIGN_SERVER="on"} \
 	%{!?with_tools:-DENABLE_EDITOR="off"} \
 	%{?with_tools:-DENABLE_TOOLS="on"} \
-	%{!?with_fribidi:-DENABLE_FRIBIDI="off"} \
-%if "%{_lib}" == "lib64"
-	-DLIB_SUFFIX=64
-%endif
+	%{!?with_fribidi:-DENABLE_FRIBIDI="off"}
 
 %{__make}
 
@@ -157,16 +149,16 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/fur{_IT,}
 
 # unsupported(?)
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/racv
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/en@shaw
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavian
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavianlatin
-rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/la
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/racv
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/en@shaw
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavian
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavianlatin
+%{__rm} -r $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 
 # the same as manuals from %{_mandir}/man?
-rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
+%{__rm} -r $RPM_BUILD_ROOT%{_mandir}/en_GB
 
 %find_lang %{name} --all-name
 
