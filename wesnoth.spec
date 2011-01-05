@@ -38,7 +38,7 @@ BuildRequires:	lua51-devel
 BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpmbuild(macros) >= 1.577
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 # sr@Latn vs. sr@latin
