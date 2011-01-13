@@ -80,6 +80,8 @@ Requires(postun):	/usr/sbin/userdel
 Requires(pre):	/usr/sbin/groupadd
 Requires(pre):	/usr/sbin/useradd
 Requires:	rc-scripts >= 0.4.0.17
+Provides:	group(wesnothd)
+Provides:	user(wesnothd)
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
 
