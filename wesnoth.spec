@@ -9,13 +9,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.9.3
+Version:	1.9.4
 Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	dee499b683b8370f3e419c7c7a5a3f9b
+# Source0-md5:	1dea34208d96b5cd0c7f77e6e8610e51
 Source1:	%{name}d.init
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-locale_dir.patch
@@ -38,7 +38,7 @@ BuildRequires:	lua51-devel
 BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.577
+BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 # sr@Latn vs. sr@latin
@@ -117,7 +117,8 @@ Edytor map i narzędzia do tłumaczeń.
 %build
 install -d build
 cd build
-%cmake .. \
+%cmake \
+	.. \
 	-DENABLE_STRICT_COMPILATION="off" \
 	-DBINDIR="%{_bindir}" \
 	-DMANDIR="%{_mandir}" \
@@ -188,7 +189,7 @@ fi
 %{_mandir}/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
-%lang(es) %{_mandir}/es/man6/wesnoth.6*
+#%%lang(es) %{_mandir}/es/man6/wesnoth.6*
 %lang(et) %{_mandir}/et/man6/wesnoth.6*
 %lang(fi) %{_mandir}/fi/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
@@ -203,7 +204,7 @@ fi
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth.6*
 %lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
-%lang(tr) %{_mandir}/tr/man6/wesnoth.6*
+#%%lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
