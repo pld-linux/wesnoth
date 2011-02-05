@@ -96,7 +96,7 @@ Serwer do prowadzenia sieciowych gier Wesnoth.
 
 %package tools
 Summary:	Tools for Wesnoth
-Summary(hu.UTF.8):	Eszközök a Wesnoth-hoz
+Summary(hu.UTF-8):	Eszközök a Wesnoth-hoz
 Summary(pl.UTF-8):	Narzędzia dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires:	%{name} = %{epoch}:%{version}-%{release}
