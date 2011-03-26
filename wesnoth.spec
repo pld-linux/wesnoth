@@ -158,20 +158,19 @@ gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 %endif
 
+mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{ca_ES,ca}@valencia
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/fur{_IT,}
+mv -f $RPM_BUILD_ROOT%{_mandir}/{ca_ES,ca}@valencia
 
-# unsupported(?)
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/la
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/racv
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/en@shaw
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavian
-rm -rf $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavianlatin
-rm -rf $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
+# not supported by glibc (as of 2.13-3)
+# what is racv?
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/racv
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavian
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavianlatin
 
 # the same as manuals from %{_mandir}/man?
-rm -rf $RPM_BUILD_ROOT%{_mandir}/en_GB
+%{__rm} -r $RPM_BUILD_ROOT%{_mandir}/en_GB
 
 %find_lang %{name} --all-name
 
