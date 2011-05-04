@@ -20,6 +20,7 @@ Source1:	%{name}d.init
 Patch0:		%{name}-libpng.patch
 Patch1:		%{name}-desktop.patch
 Patch2:		%{name}-locale_dir.patch
+Patch3:		%{name}-gcc.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.14-4
 BuildRequires:	SDL_image-devel >= 1.2
@@ -115,9 +116,10 @@ Edytor map i narzędzia do tłumaczeń.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 # don't install locales in %{_datadir}/%{name}
-%{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
+%{__sed} -i 's,${DATADIR}/${LOCALEDIR},${DATAROOTDIR}/${LOCALEDIR},' CMakeLists.txt
 
 # link using libpng instead of libpng12
 %{__sed} -i 's,png12,png,' src/CMakeLists.txt
@@ -131,7 +133,7 @@ cd build
 	-DENABLE_STRICT_COMPILATION="off" \
 	-DBINDIR="%{_bindir}" \
 	-DMANDIR="%{_mandir}" \
-	-DLOCALEDIR="%{_datadir}/locale" \
+	-DLOCALEDIR="locale" \
 	%{!?with_server:-DENABLE_SERVER="off"} \
 	%{?with_server:-DENABLE_CAMPAIGN_SERVER="on"} \
 	%{!?with_tools:-DENABLE_EDITOR="off"} \
