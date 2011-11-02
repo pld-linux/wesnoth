@@ -189,22 +189,14 @@ fi
 %{_mandir}/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
-#%%lang(es) %{_mandir}/es/man6/wesnoth.6*
 %lang(et) %{_mandir}/et/man6/wesnoth.6*
-%lang(fi) %{_mandir}/fi/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(id) %{_mandir}/id/man6/wesnoth.6*
-%lang(it) %{_mandir}/it/man6/wesnoth.6*
-%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
-%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
-%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
-#%%lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
