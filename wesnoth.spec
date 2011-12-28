@@ -198,8 +198,8 @@ fi
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
-%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
-%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
+#%%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
+#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*-icon.png
@@ -226,11 +226,11 @@ fi
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
-%lang(sr) %{_mandir}/sr/man6/wesnothd.6*
-%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
-%lang(tr) %{_mandir}/tr/man6/wesnothd.6*
-%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
-%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
+#%%lang(sr) %{_mandir}/sr/man6/wesnothd.6*
+#%%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
+#%%lang(tr) %{_mandir}/tr/man6/wesnothd.6*
+#%%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
+#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
