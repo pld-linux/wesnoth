@@ -1,0 +1,1 @@
+d /var/run/wesnothd 0770 wesnothd wesnothd -
