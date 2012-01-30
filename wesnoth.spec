@@ -154,6 +154,7 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/fur{_IT,}
 
 # unsupported(?)
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ang@latin
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/la
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/racv
@@ -161,6 +162,8 @@ mv -f $RPM_BUILD_ROOT%{_datadir}/locale/fur{_IT,}
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavian
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavianlatin
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
+%{__rm} -r $RPM_BUILD_ROOT%{_mandir}/sr@ijekavian
+%{__rm} -r $RPM_BUILD_ROOT%{_mandir}/sr@ijekavianlatin
 
 # the same as manuals from %{_mandir}/man?
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/en_GB
