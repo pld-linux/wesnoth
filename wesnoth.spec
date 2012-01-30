@@ -1,5 +1,6 @@
 # TODO
 # - unpackaged language files
+#
 # Conditional build
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
@@ -9,17 +10,16 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
-Version:	1.8.6
-Release:	2
+Version:	1.10
+Release:	0.1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	f1c3179869b01b61e253e74aeb241034
+# Source0-md5:	707daa13e2f5b3976d9b169aab62dc29
 Source1:	%{name}d.init
-Patch0:		%{name}-libpng.patch
-Patch1:		%{name}-desktop.patch
-Patch2:		%{name}-locale_dir.patch
+Patch0:		%{name}-desktop.patch
+Patch1:		%{name}-locale_dir.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.14-4
 BuildRequires:	SDL_image-devel >= 1.2
@@ -39,7 +39,7 @@ BuildRequires:	lua51-devel
 BuildRequires:	pango-devel
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.268
+BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
 Requires:	SDL >= 1.2.14-4
@@ -96,7 +96,7 @@ Serwer do prowadzenia sieciowych gier Wesnoth.
 
 %package tools
 Summary:	Tools for Wesnoth
-Summary(hu.UTF-8):	Eszközök a Wesnoth-hoz
+Summary(hu.UTF.8):	Eszközök a Wesnoth-hoz
 Summary(pl.UTF-8):	Narzędzia dla Wesnoth
 Group:		X11/Applications/Games/Strategy
 Requires:	%{name} = %{epoch}:%{version}-%{release}
@@ -114,32 +114,24 @@ Edytor map i narzędzia do tłumaczeń.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 # don't install locales in %{_datadir}/%{name}
-%{__sed} -i 's,${DATADIR}/${LOCALEDIR},${DATAROOTDIR}/${LOCALEDIR},' CMakeLists.txt
-
-# link using libpng instead of libpng12
-%{__sed} -i 's,png12,png,' src/CMakeLists.txt
+%{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
 
 %build
 install -d build
 cd build
-%cmake .. \
-	-DCMAKE_BUILD_TYPE=%{!?debug:Release}%{?debug:Debug} \
-	-DCMAKE_INSTALL_PREFIX=%{_prefix} \
+%cmake \
+	.. \
 	-DENABLE_STRICT_COMPILATION="off" \
 	-DBINDIR="%{_bindir}" \
 	-DMANDIR="%{_mandir}" \
-	-DLOCALEDIR="locale" \
+	-DLOCALEDIR="%{_datadir}/locale" \
 	%{!?with_server:-DENABLE_SERVER="off"} \
 	%{?with_server:-DENABLE_CAMPAIGN_SERVER="on"} \
 	%{!?with_tools:-DENABLE_EDITOR="off"} \
 	%{?with_tools:-DENABLE_TOOLS="on"} \
-	%{!?with_fribidi:-DENABLE_FRIBIDI="off"} \
-%if "%{_lib}" == "lib64"
-	-DLIB_SUFFIX=64
-%endif
+	%{!?with_fribidi:-DENABLE_FRIBIDI="off"}
 
 %{__make}
 
@@ -158,16 +150,17 @@ gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 %endif
 
-mv -f $RPM_BUILD_ROOT%{_datadir}/locale/{ca_ES,ca}@valencia
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/fur{_IT,}
-mv -f $RPM_BUILD_ROOT%{_mandir}/{ca_ES,ca}@valencia
 
-# not supported by glibc (as of 2.13-3)
-# what is racv?
+# unsupported(?)
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/la
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/racv
+%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/en@shaw
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavian
 %{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavianlatin
+%{__rm} -r $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 
 # the same as manuals from %{_mandir}/man?
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/en_GB
@@ -200,24 +193,16 @@ fi
 %{_mandir}/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
-%lang(es) %{_mandir}/es/man6/wesnoth.6*
 %lang(et) %{_mandir}/et/man6/wesnoth.6*
-%lang(fi) %{_mandir}/fi/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
 %lang(gl) %{_mandir}/gl/man6/wesnoth.6*
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(id) %{_mandir}/id/man6/wesnoth.6*
-%lang(it) %{_mandir}/it/man6/wesnoth.6*
-%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
-%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
-%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
-%lang(tr) %{_mandir}/tr/man6/wesnoth.6*
-%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
-%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
+#%%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
+#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_datadir}/%{name}
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*-icon.png
@@ -244,11 +229,11 @@ fi
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
-%lang(sr) %{_mandir}/sr/man6/wesnothd.6*
-%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
-%lang(tr) %{_mandir}/tr/man6/wesnothd.6*
-%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
-%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
+#%%lang(sr) %{_mandir}/sr/man6/wesnothd.6*
+#%%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
+#%%lang(tr) %{_mandir}/tr/man6/wesnothd.6*
+#%%lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
+#%%lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %endif
 
