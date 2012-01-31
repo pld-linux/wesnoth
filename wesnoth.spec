@@ -18,6 +18,7 @@ Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
 # Source0-md5:	707daa13e2f5b3976d9b169aab62dc29
 Source1:	%{name}d.init
+Source2:	%{name}.tmpfiles
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-locale_dir.patch
 URL:		http://www.wesnoth.org/
@@ -137,7 +138,8 @@ cd build
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/rc.d/init.d,%{_docdir}/%{name}-%{version}}
+install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/rc.d/init.d} \
+	$RPM_BUILD_ROOT{/usr/lib/tmpfiles.d,%{_docdir}/%{name}-%{version}}
 
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -148,6 +150,7 @@ gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
 
 %if %{with server}
 install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
+install %{SOURCE2} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
 %endif
 
 mv -f $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
@@ -245,6 +248,7 @@ fi
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
+/usr/lib/tmpfiles.d/%{name}.conf
 %endif
 
 %if %{with tools}
