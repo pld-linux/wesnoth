@@ -21,6 +21,7 @@ Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Patch0:		%{name}-desktop.patch
 Patch1:		%{name}-locale_dir.patch
+Patch2:		boost-1.50.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL-devel >= 1.2.14-4
 BuildRequires:	SDL_image-devel >= 1.2
@@ -115,6 +116,7 @@ Edytor map i narzędzia do tłumaczeń.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 # don't install locales in %{_datadir}/%{name}
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
