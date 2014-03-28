@@ -5,13 +5,13 @@
 %bcond_without	server	# without server
 %bcond_without	tools	# without tools
 %bcond_without	fribidi	# without Bidirectional language support
-#
+
 Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
 Name:		wesnoth
 Version:	1.10.4
-Release:	7
+Release:	8
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
@@ -43,6 +43,7 @@ BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.600
 BuildRequires:	sed >= 4.0
 BuildRequires:	zlib-devel
+Requires:	%{name}-data = %{epoch}:%{version}
 Requires:	SDL >= 1.2.14-4
 # sr@Latn vs. sr@latin
 Conflicts:	glibc-misc < 6:2.7
@@ -111,6 +112,16 @@ Pályaszerkesztők és fordítási eszközök.
 %description tools -l pl.UTF-8
 Edytor map i narzędzia do tłumaczeń.
 
+%package data
+Summary:	Strategy game with a fantasy theme
+Group:		Applications/Games
+%if "%{_rpmversion}" >= "5"
+BuildArch:	noarch
+%endif
+
+%description data
+This package contains the data files for Wesnoth.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -127,7 +138,7 @@ cd build
 	-DENABLE_STRICT_COMPILATION="off" \
 	-DBINDIR="%{_bindir}" \
 	-DMANDIR="%{_mandir}" \
-	-DLOCALEDIR="%{_datadir}/locale" \
+	-DLOCALEDIR="%{_localedir}" \
 	%{!?with_server:-DENABLE_SERVER="off"} \
 	%{?with_server:-DENABLE_CAMPAIGN_SERVER="on"} \
 	%{!?with_tools:-DENABLE_EDITOR="off"} \
@@ -139,31 +150,31 @@ cd build
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/rc.d/init.d} \
-	$RPM_BUILD_ROOT{/usr/lib/tmpfiles.d,%{_docdir}/%{name}-%{version}}
+	$RPM_BUILD_ROOT{%{systemdtmpfilesdir},%{_docdir}/%{name}-%{version}}
 
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 # install additional docs
-install changelog README  $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
+cp -p changelog README  $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
 gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
 
 %if %{with server}
-install %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
-install %{SOURCE2} $RPM_BUILD_ROOT/usr/lib/tmpfiles.d/%{name}.conf
+cp -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
+cp -p %{SOURCE2} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 %endif
 
-mv -f $RPM_BUILD_ROOT%{_datadir}/locale/nb{_NO,}
-mv -f $RPM_BUILD_ROOT%{_datadir}/locale/fur{_IT,}
+mv -f $RPM_BUILD_ROOT%{_localedir}/nb{_NO,}
+mv -f $RPM_BUILD_ROOT%{_localedir}/fur{_IT,}
 
 # unsupported(?)
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ang@latin
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/ca_ES@valencia
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/la
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/racv
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/en@shaw
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavian
-%{__rm} -r $RPM_BUILD_ROOT%{_datadir}/locale/sr@ijekavianlatin
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ang@latin
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ca_ES@valencia
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/la
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/racv
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/en@shaw
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/sr@ijekavian
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/sr@ijekavianlatin
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/sr@ijekavian
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/sr@ijekavianlatin
@@ -215,7 +226,6 @@ fi
 %lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
-%{_datadir}/%{name}
 %{_desktopdir}/*.desktop
 %{_pixmapsdir}/*-icon.png
 
@@ -248,7 +258,7 @@ fi
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
-/usr/lib/tmpfiles.d/%{name}.conf
+%{systemdtmpfilesdir}/%{name}.conf
 %endif
 
 %if %{with tools}
@@ -257,3 +267,7 @@ fi
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
 %endif
+
+%files data
+%defattr(644,root,root,755)
+%{_datadir}/%{name}
