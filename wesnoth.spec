@@ -32,7 +32,7 @@ BuildRequires:	boost-devel >= 1.33
 BuildRequires:	cmake >= 2.4
 BuildRequires:	dbus-devel
 %{?with_fribidi:BuildRequires:	fribidi-devel}
-BuildRequires:	gettext-devel
+BuildRequires:	gettext-tools
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
 BuildRequires:	libvorbis-devel
