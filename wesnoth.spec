@@ -1,4 +1,5 @@
 # TODO
+# - system lua?
 # - unpackaged language files
 #
 # Conditional build
@@ -8,15 +9,15 @@
 
 Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
-Summary(pl.UTF-8):	Strategiczna gra z motywem fantasy
+Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
-Version:	1.10.4
-Release:	16
+Version:	1.10.7
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	1a673f12e4521fc66e60ec584fa7c98f
+# Source0-md5:	3f460a494530d32aa5d5d0f19c95efbd
 Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Patch0:		%{name}-desktop.patch
@@ -27,26 +28,28 @@ BuildRequires:	SDL_image-devel >= 1.2
 BuildRequires:	SDL_mixer-devel >= 1.2
 BuildRequires:	SDL_net-devel >= 1.2
 BuildRequires:	SDL_ttf-devel >= 2.0.8
-BuildRequires:	asciidoc
-BuildRequires:	boost-devel >= 1.33
-BuildRequires:	cmake >= 2.4
+BuildRequires:	boost-devel >= 1.36
+BuildRequires:	cmake >= 2.6.0
 BuildRequires:	dbus-devel
+BuildRequires:	fontconfig-devel >= 2.4.1
 %{?with_fribidi:BuildRequires:	fribidi-devel}
 BuildRequires:	gettext-tools
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	libvorbis-devel
-BuildRequires:	lua51-devel
-BuildRequires:	pango-devel
+BuildRequires:	pango-devel >= 1:1.14.8
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
-BuildRequires:	rpmbuild(macros) >= 1.600
+BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	sed >= 4.0
+BuildRequires:	xorg-lib-libICE-devel
+BuildRequires:	xorg-lib-libSM-devel
+BuildRequires:	xorg-lib-libX11-devel
+BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	zlib-devel
 Requires:	%{name}-data = %{epoch}:%{version}
 Requires:	SDL >= 1.2.14-4
-# sr@Latn vs. sr@latin
-Conflicts:	glibc-misc < 6:2.7
+Requires:	fontconfig >= 2.4.1
+Requires:	pango >= 1:1.14.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -84,8 +87,6 @@ Requires(pre):	/usr/sbin/useradd
 Requires:	rc-scripts >= 0.4.0.17
 Provides:	group(wesnothd)
 Provides:	user(wesnothd)
-# sr@Latn vs. sr@latin
-Conflicts:	glibc-misc < 6:2.7
 
 %description server
 Server for playing networked games of Wesnoth.
@@ -113,14 +114,18 @@ Pályaszerkesztők és fordítási eszközök.
 Edytor map i narzędzia do tłumaczeń.
 
 %package data
-Summary:	Strategy game with a fantasy theme
+Summary:	Strategy game with a fantasy theme - data files
+Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy - pliki danych
 Group:		Applications/Games
-%if "%{_rpmversion}" >= "5"
+%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
 %endif
 
 %description data
 This package contains the data files for Wesnoth.
+
+%description data -l pl.UTF-8
+Ten pakiet zawiera pliki danych dla gry Wesnoth.
 
 %prep
 %setup -q
@@ -129,6 +134,13 @@ This package contains the data files for Wesnoth.
 
 # don't install locales in %{_datadir}/%{name}
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
+
+%{__sed} -i '1s,/usr/bin/env python$,%{__python},' \
+	data/tools/{about_cfg_to_wiki,expand-terrain-macros.py,extractbindings,imgcheck,journeylifter,scoutDefault.py,terrain2wiki.py,trackplacer,wesnoth_addon_manager,wmlflip,wmlindent,wmllint,wmllint_gui,wmlmove,wmlscope,wmlunits,wmlvalidator,wmlxgettext} \
+	data/tools/unit_tree/{TeamColorizer,overview.py} \
+	data/tools/wesnoth/{blacklist.py,wescamp.py,wmldata.py,wmlparser.py,wmlparser2.py}
+
+%{__sed} -i '1s,/usr/bin/python$,%{__python},' data/tools/terrain2wiki.py
 
 %build
 install -d build
@@ -155,27 +167,20 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-# install additional docs
-cp -p changelog README  $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}
-gzip -9nf $RPM_BUILD_ROOT%{_docdir}/%{name}-%{version}/{changelog,README}
-
 %if %{with server}
 cp -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 %endif
 
-mv -f $RPM_BUILD_ROOT%{_localedir}/nb{_NO,}
-mv -f $RPM_BUILD_ROOT%{_localedir}/fur{_IT,}
+# unify
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{ca_ES@valencia,ca@valencia}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{nb_NO,nb}
+%{__mv} $RPM_BUILD_ROOT%{_localedir}/{fur_IT,fur}
+%{__mv} $RPM_BUILD_ROOT%{_mandir}/{ca_ES@valencia,ca@valencia}
 
 # unsupported(?)
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ang@latin
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ca_ES@valencia
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/la
 %{__rm} -r $RPM_BUILD_ROOT%{_localedir}/racv
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/en@shaw
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/sr@ijekavian
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/sr@ijekavianlatin
-%{__rm} -r $RPM_BUILD_ROOT%{_mandir}/ca_ES@valencia
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/sr@ijekavian
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/sr@ijekavianlatin
 
@@ -205,7 +210,8 @@ fi
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc %{_docdir}/%{name}-%{version}
+%doc README changelog
+%doc %{_docdir}/%{name}
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
@@ -220,14 +226,19 @@ fi
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(pl) %{_mandir}/pl/man6/wesnoth.6*
+%lang(pt) %{_mandir}/pt/man6/wesnoth.6*
 %lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(sr) %{_mandir}/sr/man6/wesnoth.6*
 %lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
+%lang(uk) %{_mandir}/uk/man6/wesnoth.6*
+%lang(vi) %{_mandir}/vi/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
-%{_desktopdir}/*.desktop
-%{_pixmapsdir}/*-icon.png
+%{_desktopdir}/wesnoth.desktop
+%{_desktopdir}/wesnoth_editor.desktop
+%{_pixmapsdir}/wesnoth-icon.png
+%{_pixmapsdir}/wesnoth_editor-icon.png
 
 %if %{with server}
 %files server
@@ -249,12 +260,15 @@ fi
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
 %lang(lt) %{_mandir}/lt/man6/wesnothd.6*
 %lang(pl) %{_mandir}/pl/man6/wesnothd.6*
+%lang(pt) %{_mandir}/pt/man6/wesnothd.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
 %lang(ru) %{_mandir}/ru/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(sr) %{_mandir}/sr/man6/wesnothd.6*
 %lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
+%lang(uk) %{_mandir}/uk/man6/wesnothd.6*
+%lang(vi) %{_mandir}/vi/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
@@ -266,6 +280,8 @@ fi
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_bindir}/cutter
 %attr(755,root,root) %{_bindir}/exploder
+%attr(755,root,root) %{_bindir}/schema_generator
+%attr(755,root,root) %{_bindir}/schema_validator
 %endif
 
 %files data
