@@ -1,0 +1,4 @@
+#
+# wesnothd(6) options. Pick a custom port here if needed, for example.
+#
+WESNOTHD_OPTIONS=""

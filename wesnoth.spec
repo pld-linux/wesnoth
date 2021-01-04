@@ -4,52 +4,58 @@
 #
 # Conditional build
 %bcond_without	server	# without server
-%bcond_without	tools	# without tools
 %bcond_without	fribidi	# without Bidirectional language support
 
 Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
-Version:	1.10.7
+Version:	1.14.15
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	3f460a494530d32aa5d5d0f19c95efbd
+# Source0-md5:	f3149cf74ae55c490739494c45179fa7
 Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
-Patch0:		%{name}-desktop.patch
-Patch1:		%{name}-locale_dir.patch
+Source3:	%{name}.sysconfig
+Source4:	%{name}d.service
 URL:		http://www.wesnoth.org/
-BuildRequires:	SDL-devel >= 1.2.14-4
-BuildRequires:	SDL_image-devel >= 1.2
-BuildRequires:	SDL_mixer-devel >= 1.2
-BuildRequires:	SDL_net-devel >= 1.2
-BuildRequires:	SDL_ttf-devel >= 2.0.8
-BuildRequires:	boost-devel >= 1.36
-BuildRequires:	cmake >= 2.6.0
+BuildRequires:	SDL2-devel >= 2.0.4
+BuildRequires:	SDL2_image-devel >= 2.0.0
+BuildRequires:	SDL2_mixer-devel >= 2.0.0
+BuildRequires:	SDL2_ttf-devel >= 2.0.12
+BuildRequires:	boost-devel >= 1.50.0
+BuildRequires:	bzip2-devel
+BuildRequires:	cairo-devel >= 1.10.0
+BuildRequires:	cmake >= 2.8.5
 BuildRequires:	dbus-devel
 BuildRequires:	fontconfig-devel >= 2.4.1
 %{?with_fribidi:BuildRequires:	fribidi-devel}
 BuildRequires:	gettext-tools
+BuildRequires:	libicu-devel
 BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel
-BuildRequires:	pango-devel >= 1:1.14.8
+BuildRequires:	libvorbis-devel
+BuildRequires:	openssl-devel
+BuildRequires:	pango-devel >= 1:1.22.0
 BuildRequires:	pkgconfig
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	sed >= 4.0
+BuildRequires:	systemd-devel
 BuildRequires:	xorg-lib-libICE-devel
 BuildRequires:	xorg-lib-libSM-devel
 BuildRequires:	xorg-lib-libX11-devel
 BuildRequires:	xorg-lib-libXext-devel
 BuildRequires:	zlib-devel
+Requires(post,postun):	desktop-file-utils
+Requires(post,postun):	gtk-update-icon-cache
 Requires:	%{name}-data = %{epoch}:%{version}
-Requires:	SDL >= 1.2.14-4
+Requires:	SDL2 >= 2.0.4
 Requires:	fontconfig >= 2.4.1
-Requires:	pango >= 1:1.14.8
+Requires:	pango >= 1:1.22.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -97,22 +103,6 @@ Szerver a Wesnoth hálózati játékához.
 %description server -l pl.UTF-8
 Serwer do prowadzenia sieciowych gier Wesnoth.
 
-%package tools
-Summary:	Tools for Wesnoth
-Summary(hu.UTF.8):	Eszközök a Wesnoth-hoz
-Summary(pl.UTF-8):	Narzędzia dla Wesnoth
-Group:		X11/Applications/Games/Strategy
-Requires:	%{name} = %{epoch}:%{version}-%{release}
-
-%description tools
-Map editor and translations tools.
-
-%description tools -l hu.UTF-8
-Pályaszerkesztők és fordítási eszközök.
-
-%description tools -l pl.UTF-8
-Edytor map i narzędzia do tłumaczeń.
-
 %package data
 Summary:	Strategy game with a fantasy theme - data files
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy - pliki danych
@@ -129,40 +119,36 @@ Ten pakiet zawiera pliki danych dla gry Wesnoth.
 
 %prep
 %setup -q
-%patch0 -p1
-%patch1 -p1
 
 # don't install locales in %{_datadir}/%{name}
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
 
-%{__sed} -i '1s,/usr/bin/env python$,%{__python},' \
-	data/tools/{about_cfg_to_wiki,expand-terrain-macros.py,extractbindings,imgcheck,journeylifter,scoutDefault.py,terrain2wiki.py,trackplacer,wesnoth_addon_manager,wmlflip,wmlindent,wmllint,wmllint_gui,wmlmove,wmlscope,wmlunits,wmlvalidator,wmlxgettext} \
-	data/tools/unit_tree/{TeamColorizer,overview.py} \
-	data/tools/wesnoth/{blacklist.py,wescamp.py,wmldata.py,wmlparser.py,wmlparser2.py}
-
-%{__sed} -i '1s,/usr/bin/python$,%{__python},' data/tools/terrain2wiki.py
+%{__sed} -i '1s,/usr/bin/env python3$,%{__python3},' \
+	data/tools/{GUI.pyw,about_cfg_to_wiki,addon_manager/__init__.py,addon_manager/html.py,campaign2wiki.py,extractbindings,hexometer.py,imgcheck,steam-changelog,terrain2wiki.py,unit_tree/TeamColorizer,unit_tree/__init__.py,unit_tree/animations.py,unit_tree/helpers.py,unit_tree/html_output.py,unit_tree/overview.py,unit_tree/wiki_output.py,wesnoth/campaignserver_client.py,wesnoth/libgithub.py,wesnoth/wescamp.py,wesnoth/wmliterator3.py,wesnoth/wmlparser3.py,wesnoth/wmltools3.py,wesnoth_addon_manager,wmlindent,wmllint,wmllint-1.4,wmlscope,wmlunits,wmlxgettext}
+%{__sed} -i '1s,/usr/bin/env python2$,%{__python},' \
+	data/tools/{expand-terrain-macros.py,journeylifter,rmtrans/rmtrans.py,scoutDefault.py,trackplacer,wesnoth/wmldata.py,wesnoth/wmlgrammar.py,wesnoth/wmliterator.py,wesnoth/wmlparser.py,wesnoth/wmlparser2.py,wesnoth/wmltools.py,wmlflip,wmlvalidator}
 
 %build
 install -d build
 cd build
 %cmake \
 	.. \
+	-DCMAKE_BUILD_TYPE="Release" \
 	-DENABLE_STRICT_COMPILATION="off" \
 	-DBINDIR="%{_bindir}" \
 	-DMANDIR="%{_mandir}" \
 	-DLOCALEDIR="%{_localedir}" \
 	%{!?with_server:-DENABLE_SERVER="off"} \
 	%{?with_server:-DENABLE_CAMPAIGN_SERVER="on"} \
-	%{!?with_tools:-DENABLE_EDITOR="off"} \
-	%{?with_tools:-DENABLE_TOOLS="on"} \
 	%{!?with_fribidi:-DENABLE_FRIBIDI="off"}
 
 %{__make}
 
 %install
 rm -rf $RPM_BUILD_ROOT
-install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/rc.d/init.d} \
-	$RPM_BUILD_ROOT{%{systemdtmpfilesdir},%{_docdir}/%{name}-%{version}}
+install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/rc.d/init.d,/etc/sysconfig} \
+	$RPM_BUILD_ROOT{%{systemdtmpfilesdir},%{_docdir}/%{name}-%{version}} \
+	$RPM_BUILD_ROOT%{systemduserunitdir}
 
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -170,7 +156,11 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/
 %if %{with server}
 cp -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
+cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/wesnoth
+cp -p %{SOURCE4} $RPM_BUILD_ROOT%{systemduserunitdir}/wesnothd.service
 %endif
+
+%{__mv} $RPM_BUILD_ROOT%{_docdir}/html $RPM_BUILD_ROOT%{_docdir}/%{name}
 
 # unify
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{ca_ES@valencia,ca@valencia}
@@ -192,6 +182,14 @@ cp -p %{SOURCE2} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 %clean
 rm -rf $RPM_BUILD_ROOT
 
+%post
+%update_desktop_database
+%update_icon_cache hicolor
+
+%postun
+%update_desktop_database
+%update_icon_cache hicolor
+
 %pre server
 %groupadd -P %{name}-server -g 178  wesnothd
 %useradd -P %{name}-server -u 178 -d /var/run/wesnothd -c "Wesnothd User" -g wesnothd wesnothd
@@ -199,53 +197,52 @@ rm -rf $RPM_BUILD_ROOT
 %post server
 /sbin/chkconfig --add wesnothd
 %service wesnothd restart
+%systemd_post wesnothd.service
 
 %preun server
 if [ "$1" = "0" ]; then
 	%service wesnothd stop
+fi
+%systemd_preun wesnothd.service
+
+%postun server
+if [ "$1" = "0" ]; then
 	/sbin/chkconfig --del wesnothd
 	%userremove wesnothd
 	%groupremove wesnothd
 fi
+%systemd_reload
 
 %files -f %{name}.lang
 %defattr(644,root,root,755)
-%doc README changelog
+#%doc README changelog
 %doc %{_docdir}/%{name}
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
-%lang(cs) %{_mandir}/cs/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
-%lang(et) %{_mandir}/et/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
-%lang(fi) %{_mandir}/fi/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
-%lang(gl) %{_mandir}/gl/man6/wesnoth.6*
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
-%lang(id) %{_mandir}/id/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
+%lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(lt) %{_mandir}/lt/man6/wesnoth.6*
-%lang(pl) %{_mandir}/pl/man6/wesnoth.6*
-%lang(pt) %{_mandir}/pt/man6/wesnoth.6*
+%lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
 %lang(ru) %{_mandir}/ru/man6/wesnoth.6*
-%lang(sk) %{_mandir}/sk/man6/wesnoth.6*
-%lang(sr) %{_mandir}/sr/man6/wesnoth.6*
-%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnoth.6*
-%lang(uk) %{_mandir}/uk/man6/wesnoth.6*
-%lang(vi) %{_mandir}/vi/man6/wesnoth.6*
+%lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
 %{_desktopdir}/wesnoth.desktop
-%{_desktopdir}/wesnoth_editor.desktop
-%{_pixmapsdir}/wesnoth-icon.png
-%{_pixmapsdir}/wesnoth_editor-icon.png
+%{_iconsdir}/hicolor/*x*/apps/wesnoth-icon.png
+%{_datadir}/metainfo/wesnoth.appdata.xml
 
 %if %{with server}
 %files server
 %defattr(644,root,root,755)
+%config(noreplace) %verify(not md5 mtime size) /etc/sysconfig/%{name}
 %attr(755,root,root) %{_bindir}/campaignd
 %attr(755,root,root) %{_bindir}/wesnothd
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
+%attr(644,root,root) %{systemduserunitdir}/wesnothd.service
 %{_mandir}/man6/wesnothd.6*
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
@@ -273,15 +270,6 @@ fi
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
 %{systemdtmpfilesdir}/%{name}.conf
-%endif
-
-%if %{with tools}
-%files tools
-%defattr(644,root,root,755)
-%attr(755,root,root) %{_bindir}/cutter
-%attr(755,root,root) %{_bindir}/exploder
-%attr(755,root,root) %{_bindir}/schema_generator
-%attr(755,root,root) %{_bindir}/schema_validator
 %endif
 
 %files data

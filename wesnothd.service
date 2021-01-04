@@ -1,0 +1,12 @@
+[Unit]
+Description=Wesnoth game server
+After=network.target
+
+[Service]
+EnvironmentFile=-/etc/sysconfig/wesnoth
+Type=forking
+User=wesnothd
+ExecStart=/usr/bin/wesnothd --daemon $WESNOTHD_OPTIONS
+
+[Install]
+WantedBy=multi-user.target
