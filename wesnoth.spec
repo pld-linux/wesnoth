@@ -148,7 +148,7 @@ cd build
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/rc.d/init.d,/etc/sysconfig} \
 	$RPM_BUILD_ROOT{%{systemdtmpfilesdir},%{_docdir}/%{name}-%{version}} \
-	$RPM_BUILD_ROOT%{systemduserunitdir}
+	$RPM_BUILD_ROOT%{systemdunitdir}
 
 %{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
@@ -157,7 +157,7 @@ install -d $RPM_BUILD_ROOT{%{_desktopdir},%{_pixmapsdir},/var/run/wesnothd,/etc/
 cp -p %{SOURCE1} $RPM_BUILD_ROOT/etc/rc.d/init.d/wesnothd
 cp -p %{SOURCE2} $RPM_BUILD_ROOT%{systemdtmpfilesdir}/%{name}.conf
 cp -p %{SOURCE3} $RPM_BUILD_ROOT%{_sysconfdir}/sysconfig/wesnoth
-cp -p %{SOURCE4} $RPM_BUILD_ROOT%{systemduserunitdir}/wesnothd.service
+cp -p %{SOURCE4} $RPM_BUILD_ROOT%{systemdunitdir}/wesnothd.service
 %endif
 
 %{__mv} $RPM_BUILD_ROOT%{_docdir}/html $RPM_BUILD_ROOT%{_docdir}/%{name}
@@ -242,7 +242,7 @@ fi
 %attr(755,root,root) %{_bindir}/campaignd
 %attr(755,root,root) %{_bindir}/wesnothd
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
-%attr(644,root,root) %{systemduserunitdir}/wesnothd.service
+%attr(644,root,root) %{systemdunitdir}/wesnothd.service
 %{_mandir}/man6/wesnothd.6*
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
