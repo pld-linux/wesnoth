@@ -202,12 +202,12 @@ rm -rf $RPM_BUILD_ROOT
 %preun server
 if [ "$1" = "0" ]; then
 	%service wesnothd stop
+	/sbin/chkconfig --del wesnothd
 fi
 %systemd_preun wesnothd.service
 
 %postun server
 if [ "$1" = "0" ]; then
-	/sbin/chkconfig --del wesnothd
 	%userremove wesnothd
 	%groupremove wesnothd
 fi
