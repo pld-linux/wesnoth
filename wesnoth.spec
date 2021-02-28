@@ -107,9 +107,7 @@ Serwer do prowadzenia sieciowych gier Wesnoth.
 Summary:	Strategy game with a fantasy theme - data files
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy - pliki danych
 Group:		Applications/Games
-%if "%{_rpmversion}" >= "4.6"
 BuildArch:	noarch
-%endif
 
 %description data
 This package contains the data files for Wesnoth.
