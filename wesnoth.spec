@@ -10,13 +10,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
-Version:	1.14.15
+Version:	1.14.16
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	f3149cf74ae55c490739494c45179fa7
+# Source0-md5:	769733a55ab5742815e0acf8c51e13e4
 Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Source3:	%{name}.sysconfig
@@ -217,6 +217,7 @@ fi
 %doc %{_docdir}/%{name}
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
+%lang(ca) %{_mandir}/ca/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
@@ -242,6 +243,7 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %attr(644,root,root) %{systemdunitdir}/wesnothd.service
 %{_mandir}/man6/wesnothd.6*
+%lang(ca) %{_mandir}/ca/man6/wesnothd.6*
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
