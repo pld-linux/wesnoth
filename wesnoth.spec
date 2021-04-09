@@ -115,6 +115,8 @@ This package contains the data files for Wesnoth.
 %description data -l pl.UTF-8
 Ten pakiet zawiera pliki danych dla gry Wesnoth.
 
+%global debug_package %{nil}
+
 %prep
 %setup -q
 
