@@ -59,6 +59,7 @@ Requires:	SDL2 >= 2.0.4
 Requires:	fontconfig >= 2.4.1
 %{?with_fribidi:Requires:	fribidi >= 0.10.9}
 Requires:	pango >= 1:1.22.8
+Obsoletes:	wesnoth-tools < 1:1.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
