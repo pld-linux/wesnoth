@@ -119,8 +119,6 @@ This package contains the data files for Wesnoth.
 %description data -l pl.UTF-8
 Ten pakiet zawiera pliki danych dla gry Wesnoth.
 
-%global debug_package %{nil}
-
 %prep
 %setup -q
 
@@ -135,16 +133,17 @@ Ten pakiet zawiera pliki danych dla gry Wesnoth.
 %build
 install -d build
 cd build
-%cmake \
-	.. \
-	-DCMAKE_BUILD_TYPE="Release" \
-	-DENABLE_STRICT_COMPILATION="off" \
+# override *FLAGS to remove -DNDEBUG (wesnoth depends on asserts)
+CFLAGS="%{rpmcflags}"
+CXXFLAGS="%{rpmcxxflags}"
+%cmake .. \
+	-DENABLE_STRICT_COMPILATION=OFF \
 	-DBINDIR="%{_bindir}" \
 	-DMANDIR="%{_mandir}" \
 	-DLOCALEDIR="%{_localedir}" \
-	%{!?with_server:-DENABLE_SERVER="off"} \
-	%{?with_server:-DENABLE_CAMPAIGN_SERVER="on"} \
-	%{!?with_fribidi:-DENABLE_FRIBIDI="off"}
+	%{!?with_server:-DENABLE_SERVER=OFF} \
+	%{?with_server:-DENABLE_CAMPAIGN_SERVER=ON} \
+	%{!?with_fribidi:-DENABLE_FRIBIDI=OFF}
 
 %{__make}
 
