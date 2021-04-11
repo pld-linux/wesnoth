@@ -32,15 +32,17 @@ BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	cmake >= 2.8.5
 BuildRequires:	dbus-devel
 BuildRequires:	fontconfig-devel >= 2.4.1
-%{?with_fribidi:BuildRequires:	fribidi-devel}
+%{?with_fribidi:BuildRequires:	fribidi-devel >= 0.10.9}
 BuildRequires:	gettext-tools
 BuildRequires:	libicu-devel
 BuildRequires:	libpng-devel
-BuildRequires:	libstdc++-devel
+BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libvorbis-devel
-BuildRequires:	openssl-devel
+BuildRequires:	openssl-devel >= 1.0
 BuildRequires:	pango-devel >= 1:1.22.0
 BuildRequires:	pkgconfig
+BuildRequires:	readline-devel
+BuildRequires:	rpm-build >= 4.6
 BuildRequires:	rpm-pythonprov
 BuildRequires:	rpmbuild(macros) >= 1.605
 BuildRequires:	sed >= 4.0
@@ -55,6 +57,7 @@ Requires(post,postun):	gtk-update-icon-cache
 Requires:	%{name}-data = %{epoch}:%{version}
 Requires:	SDL2 >= 2.0.4
 Requires:	fontconfig >= 2.4.1
+%{?with_fribidi:Requires:	fribidi >= 0.10.9}
 Requires:	pango >= 1:1.22.8
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
