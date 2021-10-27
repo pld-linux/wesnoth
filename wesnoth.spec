@@ -4,35 +4,32 @@
 #
 # Conditional build
 %bcond_without	server	# without server
-%bcond_without	fribidi	# without Bidirectional language support
 
 Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
-Version:	1.14.17
-Release:	3
+Version:	1.16.0
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	5ef1d8045fd52f17852b726826c5c52a
+# Source0-md5:	f07aebf91ef46e47312eb467e1426f06
 Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Source3:	%{name}.sysconfig
 Source4:	%{name}d.service
 URL:		http://www.wesnoth.org/
-BuildRequires:	SDL2-devel >= 2.0.4
-BuildRequires:	SDL2_image-devel >= 2.0.0
+BuildRequires:	SDL2-devel >= 2.0.8
+BuildRequires:	SDL2_image-devel >= 2.0.2
 BuildRequires:	SDL2_mixer-devel >= 2.0.0
-BuildRequires:	SDL2_ttf-devel >= 2.0.12
 BuildRequires:	boost-devel >= 1.50.0
 BuildRequires:	bzip2-devel
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	cmake >= 2.8.5
 BuildRequires:	dbus-devel
 BuildRequires:	fontconfig-devel >= 2.4.1
-%{?with_fribidi:BuildRequires:	fribidi-devel >= 0.10.9}
 BuildRequires:	gettext-tools
 BuildRequires:	libicu-devel
 BuildRequires:	libpng-devel
@@ -57,7 +54,6 @@ Requires(post,postun):	gtk-update-icon-cache
 Requires:	%{name}-data = %{epoch}:%{version}
 Requires:	SDL2 >= 2.0.4
 Requires:	fontconfig >= 2.4.1
-%{?with_fribidi:Requires:	fribidi >= 0.10.9}
 Requires:	pango >= 1:1.22.8
 Obsoletes:	wesnoth-tools < 1:1.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -126,9 +122,7 @@ Ten pakiet zawiera pliki danych dla gry Wesnoth.
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
 
 %{__sed} -i '1s,/usr/bin/env python3$,%{__python3},' \
-	data/tools/{GUI.pyw,about_cfg_to_wiki,addon_manager/__init__.py,addon_manager/html.py,campaign2wiki.py,extractbindings,hexometer.py,imgcheck,steam-changelog,terrain2wiki.py,unit_tree/TeamColorizer,unit_tree/__init__.py,unit_tree/animations.py,unit_tree/helpers.py,unit_tree/html_output.py,unit_tree/overview.py,unit_tree/wiki_output.py,wesnoth/campaignserver_client.py,wesnoth/libgithub.py,wesnoth/wescamp.py,wesnoth/wmliterator3.py,wesnoth/wmlparser3.py,wesnoth/wmltools3.py,wesnoth_addon_manager,wmlindent,wmllint,wmllint-1.4,wmlscope,wmlunits,wmlxgettext}
-%{__sed} -i '1s,/usr/bin/env python2$,%{__python},' \
-	data/tools/{expand-terrain-macros.py,journeylifter,rmtrans/rmtrans.py,scoutDefault.py,trackplacer,wesnoth/wmldata.py,wesnoth/wmlgrammar.py,wesnoth/wmliterator.py,wesnoth/wmlparser.py,wesnoth/wmlparser2.py,wesnoth/wmltools.py,wmlflip,wmlvalidator}
+	data/tools/{GUI.pyw,about_cfg_to_wiki,addon_manager/__init__.py,addon_manager/html.py,extractbindings,hexometer.py,imgcheck,steam-changelog,terrain2wiki.py,unit_tree/TeamColorizer,unit_tree/__init__.py,unit_tree/animations.py,unit_tree/helpers.py,unit_tree/html_output.py,unit_tree/overview.py,unit_tree/wiki_output.py,wesnoth/campaignserver_client.py,wesnoth/libgithub.py,wesnoth/wescamp.py,wesnoth/wmliterator3.py,wesnoth/wmlparser3.py,wesnoth/wmltools3.py,trackviewer.pyw,wesnoth_addon_manager,wmlflip,wmlindent,wmllint,wmllint-1.4,wmlscope,wmlunits,wmlxgettext,tmx_trackplacer,wesnoth/wmldata.py,wesnoth/trackplacer3/datatypes.py,wesnoth/wmlparser.py,expand-terrain-macros.py}
 
 %build
 install -d build
@@ -142,8 +136,7 @@ CXXFLAGS="%{rpmcxxflags}"
 	-DMANDIR="%{_mandir}" \
 	-DLOCALEDIR="%{_localedir}" \
 	%{!?with_server:-DENABLE_SERVER=OFF} \
-	%{?with_server:-DENABLE_CAMPAIGN_SERVER=ON} \
-	%{!?with_fribidi:-DENABLE_FRIBIDI=OFF}
+	%{?with_server:-DENABLE_CAMPAIGN_SERVER=ON}
 
 %{__make}
 
@@ -168,17 +161,18 @@ cp -p %{SOURCE4} $RPM_BUILD_ROOT%{systemdunitdir}/wesnothd.service
 # unify
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{ca_ES@valencia,ca@valencia}
 %{__mv} $RPM_BUILD_ROOT%{_localedir}/{nb_NO,nb}
-%{__mv} $RPM_BUILD_ROOT%{_localedir}/{fur_IT,fur}
 %{__mv} $RPM_BUILD_ROOT%{_mandir}/{ca_ES@valencia,ca@valencia}
 
 # unsupported(?)
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/ang@latin
-%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/racv
+%{__rm} -r $RPM_BUILD_ROOT%{_localedir}/{ang@latin,grc,racv}
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/sr@ijekavian
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/sr@ijekavianlatin
 
 # the same as manuals from %{_mandir}/man?
 %{__rm} -r $RPM_BUILD_ROOT%{_mandir}/en_GB
+
+# remove HighContrast icon
+%{__rm} -r $RPM_BUILD_ROOT%{_iconsdir}/HighContrast/scalable/apps/wesnoth-icon.svg
 
 %find_lang %{name} --all-name
 
@@ -230,15 +224,14 @@ fi
 %lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
-%lang(lt) %{_mandir}/lt/man6/wesnoth.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
 %lang(ru) %{_mandir}/ru/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
-%{_desktopdir}/wesnoth.desktop
+%{_desktopdir}/org.wesnoth.Wesnoth.desktop
 %{_iconsdir}/hicolor/*x*/apps/wesnoth-icon.png
-%{_datadir}/metainfo/wesnoth.appdata.xml
+%{_datadir}/metainfo/org.wesnoth.Wesnoth.appdata.xml
 
 %if %{with server}
 %files server
@@ -253,24 +246,14 @@ fi
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
-%lang(et) %{_mandir}/et/man6/wesnothd.6*
-%lang(fi) %{_mandir}/fi/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
 %lang(gl) %{_mandir}/gl/man6/wesnothd.6*
 %lang(hu) %{_mandir}/hu/man6/wesnothd.6*
-%lang(id) %{_mandir}/id/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
-%lang(pl) %{_mandir}/pl/man6/wesnothd.6*
-%lang(pt) %{_mandir}/pt/man6/wesnothd.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
 %lang(ru) %{_mandir}/ru/man6/wesnothd.6*
-%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
-%lang(sr) %{_mandir}/sr/man6/wesnothd.6*
-%lang(sr@latin) %{_mandir}/sr@latin/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
-%lang(uk) %{_mandir}/uk/man6/wesnothd.6*
-%lang(vi) %{_mandir}/vi/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
