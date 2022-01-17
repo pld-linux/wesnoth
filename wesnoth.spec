@@ -9,13 +9,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
-Version:	1.16.1
-Release:	2
+Version:	1.16.2
+Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	1e05350c9349e4c48c25c3b1cd08debb
+# Source0-md5:	b7fc032a6a69a451bb9095f87d70014f
 Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Source3:	%{name}.sysconfig
@@ -122,7 +122,7 @@ Ten pakiet zawiera pliki danych dla gry Wesnoth.
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
 
 %{__sed} -i '1s,/usr/bin/env python3$,%{__python3},' \
-	data/tools/{GUI.pyw,about_cfg_to_wiki,addon_manager/__init__.py,addon_manager/html.py,extractbindings,hexometer.py,imgcheck,steam-changelog,terrain2wiki.py,unit_tree/TeamColorizer,unit_tree/__init__.py,unit_tree/animations.py,unit_tree/helpers.py,unit_tree/html_output.py,unit_tree/overview.py,unit_tree/wiki_output.py,wesnoth/campaignserver_client.py,wesnoth/libgithub.py,wesnoth/wescamp.py,wesnoth/wmliterator3.py,wesnoth/wmlparser3.py,wesnoth/wmltools3.py,trackviewer.pyw,wesnoth_addon_manager,wmlflip,wmlindent,wmllint,wmllint-1.4,wmlscope,wmlunits,wmlxgettext,tmx_trackplacer,wesnoth/wmldata.py,wesnoth/trackplacer3/datatypes.py,wesnoth/wmlparser.py,expand-terrain-macros.py}
+	data/tools/{GUI.pyw,about_cfg_to_wiki,addon_manager/__init__.py,addon_manager/html.py,extractbindings,hexometer.py,imgcheck,steam-changelog,terrain2wiki.py,unit_tree/TeamColorizer,unit_tree/__init__.py,unit_tree/animations.py,unit_tree/helpers.py,unit_tree/html_output.py,unit_tree/overview.py,unit_tree/wiki_output.py,wesnoth/campaignserver_client.py,wesnoth/libgithub.py,wesnoth/version.py,wesnoth/wescamp.py,wesnoth/wmliterator3.py,wesnoth/wmlparser3.py,wesnoth/wmltools3.py,trackviewer.pyw,wesnoth_addon_manager,wmlflip,wmlindent,wmllint,wmllint-1.4,wmlscope,wmlunits,wmlxgettext,tmx_trackplacer,wesnoth/wmldata.py,wesnoth/trackplacer3/datatypes.py,wesnoth/wmlparser.py,expand-terrain-macros.py}
 
 %build
 install -d build
