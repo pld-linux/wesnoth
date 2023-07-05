@@ -20,6 +20,7 @@ Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Source3:	%{name}.sysconfig
 Source4:	%{name}d.service
+Patch0:		gcc13.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL2-devel >= 2.0.8
 BuildRequires:	SDL2_image-devel >= 2.0.2
@@ -117,6 +118,7 @@ Ten pakiet zawiera pliki danych dla gry Wesnoth.
 
 %prep
 %setup -q
+%patch0 -p1
 
 # don't install locales in %{_datadir}/%{name}
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
