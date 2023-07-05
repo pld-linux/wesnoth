@@ -28,7 +28,7 @@ BuildRequires:	SDL2_mixer-devel >= 2.0.0
 BuildRequires:	boost-devel >= 1.50.0
 BuildRequires:	bzip2-devel
 BuildRequires:	cairo-devel >= 1.10.0
-BuildRequires:	cmake >= 2.8.5
+BuildRequires:	cmake >= 3.7
 BuildRequires:	dbus-devel
 BuildRequires:	fontconfig-devel >= 2.4.1
 BuildRequires:	gettext-tools
