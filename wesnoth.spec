@@ -9,18 +9,17 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
-Version:	1.16.9
+Version:	1.16.10
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	9b8aaf0d74b4a27b7d6792e0fbfe3a57
+# Source0-md5:	b4ae6ae389193cdf0cf768e170f24fd1
 Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Source3:	%{name}.sysconfig
 Source4:	%{name}d.service
-Patch0:		gcc13.patch
 URL:		http://www.wesnoth.org/
 BuildRequires:	SDL2-devel >= 2.0.8
 BuildRequires:	SDL2_image-devel >= 2.0.2
@@ -118,7 +117,6 @@ Ten pakiet zawiera pliki danych dla gry Wesnoth.
 
 %prep
 %setup -q
-%patch0 -p1
 
 # don't install locales in %{_datadir}/%{name}
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
