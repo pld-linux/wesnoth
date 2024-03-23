@@ -9,22 +9,22 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
-Version:	1.16.11
+Version:	1.18.0
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	926fce1f3b89e9cf409437a4b78802e6
+# Source0-md5:	b475028bebe0168f46d5a452c4bc1c05
 Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Source3:	%{name}.sysconfig
 Source4:	%{name}d.service
 URL:		http://www.wesnoth.org/
-BuildRequires:	SDL2-devel >= 2.0.8
+BuildRequires:	SDL2-devel >= 2.0.10
 BuildRequires:	SDL2_image-devel >= 2.0.2
 BuildRequires:	SDL2_mixer-devel >= 2.0.0
-BuildRequires:	boost-devel >= 1.50.0
+BuildRequires:	boost-devel >= 1.66.0
 BuildRequires:	bzip2-devel
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	cmake >= 3.7
@@ -36,7 +36,7 @@ BuildRequires:	libpng-devel
 BuildRequires:	libstdc++-devel >= 6:4.7
 BuildRequires:	libvorbis-devel
 BuildRequires:	openssl-devel >= 1.0
-BuildRequires:	pango-devel >= 1:1.22.0
+BuildRequires:	pango-devel >= 1:1.44.0
 BuildRequires:	pkgconfig
 BuildRequires:	readline-devel
 BuildRequires:	rpm-build >= 4.6
@@ -122,7 +122,7 @@ Ten pakiet zawiera pliki danych dla gry Wesnoth.
 %{__sed} -i 's,${DATADIR}/${LOCALEDIR},${LOCALEDIR},' CMakeLists.txt
 
 %{__sed} -i '1s,/usr/bin/env python3$,%{__python3},' \
-	data/tools/{GUI.pyw,about_cfg_to_wiki,addon_manager/__init__.py,addon_manager/html.py,extractbindings,hexometer.py,imgcheck,steam-changelog,terrain2wiki.py,unit_tree/TeamColorizer,unit_tree/__init__.py,unit_tree/animations.py,unit_tree/helpers.py,unit_tree/html_output.py,unit_tree/overview.py,unit_tree/wiki_output.py,wesnoth/campaignserver_client.py,wesnoth/libgithub.py,wesnoth/version.py,wesnoth/wescamp.py,wesnoth/wmliterator3.py,wesnoth/wmlparser3.py,wesnoth/wmltools3.py,trackviewer.pyw,wesnoth_addon_manager,wmlflip,wmlindent,wmllint,wmllint-1.4,wmlscope,wmlunits,wmlxgettext,tmx_trackplacer,wesnoth/wmldata.py,wesnoth/trackplacer3/datatypes.py,wesnoth/wmlparser.py,expand-terrain-macros.py}
+	data/tools/{GUI.pyw,about_cfg_to_wiki,addon_manager/__init__.py,addon_manager/html.py,check_mixed_indent,extractbindings,hexometer.py,imgcheck,steam-changelog,terrain2wiki.py,TeamColorizer,unit_tree/__init__.py,unit_tree/animations.py,unit_tree/helpers.py,unit_tree/html_output.py,unit_tree/overview.py,unit_tree/wiki_output.py,wesnoth/campaignserver_client.py,wesnoth/libgithub.py,wesnoth/version.py,wesnoth/wescamp.py,wesnoth/wmliterator3.py,wesnoth/wmlparser3.py,wesnoth/wmltools3.py,trackviewer.pyw,wesnoth_addon_manager,wmlflip,wmlindent,wmllint,wmllint-1.4,wmlscope,wmlunits,wmlxgettext,tmx_trackplacer,wesnoth/wmldata.py,wesnoth/trackplacer3/datatypes.py,wesnoth/wmlparser.py,expand-terrain-macros.py}
 
 %build
 install -d build
@@ -216,16 +216,17 @@ fi
 %doc %{_docdir}/%{name}
 %attr(755,root,root) %{_bindir}/wesnoth
 %{_mandir}/man6/wesnoth.6*
+%lang(bg) %{_mandir}/bg/man6/wesnoth.6*
 %lang(ca) %{_mandir}/ca/man6/wesnoth.6*
 %lang(cs) %{_mandir}/cs/man6/wesnoth.6*
 %lang(de) %{_mandir}/de/man6/wesnoth.6*
 %lang(es) %{_mandir}/es/man6/wesnoth.6*
 %lang(fr) %{_mandir}/fr/man6/wesnoth.6*
-%lang(hu) %{_mandir}/hu/man6/wesnoth.6*
 %lang(it) %{_mandir}/it/man6/wesnoth.6*
 %lang(ja) %{_mandir}/ja/man6/wesnoth.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnoth.6*
 %lang(ru) %{_mandir}/ru/man6/wesnoth.6*
+%lang(sk) %{_mandir}/sk/man6/wesnoth.6*
 %lang(tr) %{_mandir}/tr/man6/wesnoth.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnoth.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnoth.6*
@@ -242,17 +243,16 @@ fi
 %attr(754,root,root) /etc/rc.d/init.d/wesnothd
 %attr(644,root,root) %{systemdunitdir}/wesnothd.service
 %{_mandir}/man6/wesnothd.6*
-%lang(ca) %{_mandir}/ca/man6/wesnothd.6*
+%lang(bg) %{_mandir}/bg/man6/wesnothd.6*
 %lang(cs) %{_mandir}/cs/man6/wesnothd.6*
 %lang(de) %{_mandir}/de/man6/wesnothd.6*
 %lang(es) %{_mandir}/es/man6/wesnothd.6*
 %lang(fr) %{_mandir}/fr/man6/wesnothd.6*
-%lang(gl) %{_mandir}/gl/man6/wesnothd.6*
-%lang(hu) %{_mandir}/hu/man6/wesnothd.6*
 %lang(it) %{_mandir}/it/man6/wesnothd.6*
 %lang(ja) %{_mandir}/ja/man6/wesnothd.6*
 %lang(pt_BR) %{_mandir}/pt_BR/man6/wesnothd.6*
 %lang(ru) %{_mandir}/ru/man6/wesnothd.6*
+%lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
