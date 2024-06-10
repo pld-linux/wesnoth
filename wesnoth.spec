@@ -9,13 +9,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
-Version:	1.18.0
+Version:	1.18.1
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	b475028bebe0168f46d5a452c4bc1c05
+# Source0-md5:	75401fa3f54d88c990490f7d014ae5e6
 Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Source3:	%{name}.sysconfig
@@ -254,6 +254,7 @@ fi
 %lang(ru) %{_mandir}/ru/man6/wesnothd.6*
 %lang(sk) %{_mandir}/sk/man6/wesnothd.6*
 %lang(tr) %{_mandir}/tr/man6/wesnothd.6*
+%lang(uk) %{_mandir}/uk/man6/wesnothd.6*
 %lang(zh_CN) %{_mandir}/zh_CN/man6/wesnothd.6*
 %lang(zh_TW) %{_mandir}/zh_TW/man6/wesnothd.6*
 %attr(770,wesnothd,wesnothd) %dir /var/run/wesnothd
