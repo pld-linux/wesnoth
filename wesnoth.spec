@@ -9,13 +9,13 @@ Summary:	Strategy game with a fantasy theme
 Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
-Version:	1.18.4
+Version:	1.18.5
 Release:	1
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
 Source0:	http://downloads.sourceforge.net/wesnoth/%{name}-%{version}.tar.bz2
-# Source0-md5:	8dcc3b12f445408df028822325c5aa3a
+# Source0-md5:	8a16439cef690f14206143360fe23872
 Source1:	%{name}d.init
 Source2:	%{name}.tmpfiles
 Source3:	%{name}.sysconfig
@@ -57,6 +57,9 @@ Requires:	fontconfig >= 2.4.1
 Requires:	pango >= 1:1.22.8
 Obsoletes:	wesnoth-tools < 1:1.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# removing -DNDEBUG (wesnoth depends on asserts)
+%define		filterout_cpp	-DNDEBUG
 
 %description
 Battle for Wesnoth is a fantasy strategy game. Battle for control of
@@ -127,9 +130,6 @@ Ten pakiet zawiera pliki danych dla gry Wesnoth.
 %build
 install -d build
 cd build
-# override *FLAGS to remove -DNDEBUG (wesnoth depends on asserts)
-CFLAGS="%{rpmcflags}"
-CXXFLAGS="%{rpmcxxflags}"
 %cmake .. \
 	-DENABLE_STRICT_COMPILATION=OFF \
 	-DBINDIR="%{_bindir}" \
