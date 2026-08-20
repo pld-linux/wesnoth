@@ -10,7 +10,7 @@ Summary(hu.UTF-8):	Fantasy környezetben játszódó stratégiai játék
 Summary(pl.UTF-8):	Gra strategiczna z motywem fantasy
 Name:		wesnoth
 Version:	1.18.8
-Release:	1
+Release:	2
 Epoch:		1
 License:	GPL v2+
 Group:		X11/Applications/Games/Strategy
@@ -28,6 +28,7 @@ BuildRequires:	boost-devel >= 1.66.0
 BuildRequires:	bzip2-devel
 BuildRequires:	cairo-devel >= 1.10.0
 BuildRequires:	cmake >= 3.7
+BuildRequires:	curl-devel
 BuildRequires:	dbus-devel
 BuildRequires:	fontconfig-devel >= 2.4.1
 BuildRequires:	gettext-tools
